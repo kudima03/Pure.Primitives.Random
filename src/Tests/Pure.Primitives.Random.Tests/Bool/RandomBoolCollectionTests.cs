@@ -1,6 +1,7 @@
 ﻿using Pure.Primitives.Abstractions.Bool;
 using Pure.Primitives.Number;
 using Pure.Primitives.Random.Bool;
+using System.Collections;
 
 namespace Pure.Primitives.Random.Tests.Bool;
 
@@ -13,6 +14,16 @@ public sealed record RandomBoolCollectionTests
     {
         const ushort count = 1000;
         Assert.Equal(count, new RandomBoolCollection(new UShort(count)).Count());
+    }
+
+    [Fact]
+    public void EnumeratesAsUntyped()
+    {
+        const ushort count = 1000;
+
+        IEnumerable randoms = new RandomBoolCollection(new UShort(count));
+
+        Assert.Equal(count, randoms.Cast<object>().Count());
     }
 
     [Fact]
