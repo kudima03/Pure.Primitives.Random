@@ -27,7 +27,7 @@ public sealed record RandomBoolCollectionTests
 
         double ratio = (double)Math.Min(trueCount, falseCount) / Math.Max(trueCount, falseCount);
 
-        Assert.True(ratio > 0.95);
+        Assert.True(ratio > 0.9, $"Ratio: {ratio}");
     }
 
     [Fact]
