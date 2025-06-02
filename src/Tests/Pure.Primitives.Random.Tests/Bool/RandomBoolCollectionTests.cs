@@ -6,7 +6,7 @@ namespace Pure.Primitives.Random.Tests.Bool;
 
 using Random = System.Random;
 
-public sealed record  RandomBoolCollectionTests
+public sealed record RandomBoolCollectionTests
 {
     [Fact]
     public void ProduceExactCount()
@@ -24,9 +24,9 @@ public sealed record  RandomBoolCollectionTests
 
         int trueCount = values.Count(x => x.BoolValue);
         int falseCount = values.Count(x => !x.BoolValue);
-        
+
         double ratio = (double)Math.Min(trueCount, falseCount) / Math.Max(trueCount, falseCount);
-        
+
         Assert.True(ratio > 0.95);
     }
 

@@ -5,7 +5,7 @@ namespace Pure.Primitives.Random.Tests.Bool;
 
 using Random = System.Random;
 
-public sealed record  RandomBoolTests
+public sealed record RandomBoolTests
 {
     [Fact]
     public void ProduceCorrectlyWithSharedProvider()
