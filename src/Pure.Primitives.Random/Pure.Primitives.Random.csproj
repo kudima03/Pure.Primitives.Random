@@ -4,6 +4,11 @@
     <TargetFramework>net9.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
+    <CheckForOverflowUnderflow>true</CheckForOverflowUnderflow>
   </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Pure.Primitives.Abstractions" Version="4.0.1" />
+  </ItemGroup>
 
 </Project>
