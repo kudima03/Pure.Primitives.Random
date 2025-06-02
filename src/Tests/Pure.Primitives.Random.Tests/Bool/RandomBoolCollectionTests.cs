@@ -23,7 +23,14 @@ public sealed record RandomBoolCollectionTests
 
         IEnumerable randoms = new RandomBoolCollection(new UShort(count));
 
-        Assert.Equal(count, randoms.Cast<object>().Count());
+        int i = 0;
+
+        foreach (object value in randoms)
+        {
+            i++;
+        }
+
+        Assert.Equal(count, i);
     }
 
     [Fact]
