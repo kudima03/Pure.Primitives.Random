@@ -1,4 +1,5 @@
-﻿using Pure.Primitives.Number;
+﻿using Pure.Primitives.Abstractions.String;
+using Pure.Primitives.Number;
 using Pure.Primitives.Random.String;
 using System.Collections;
 
@@ -9,10 +10,11 @@ using Random = System.Random;
 public sealed record RandomStringTests
 {
     [Fact]
-    public void ProduceExactCount()
+    public void ProduceExactLength()
     {
         const ushort count = 1000;
-        Assert.Equal(count, new RandomString(new UShort(count)).Count());
+        IString str = new RandomString(new UShort(count));
+        Assert.Equal(count, str.TextValue.Length);
     }
 
     [Fact]
