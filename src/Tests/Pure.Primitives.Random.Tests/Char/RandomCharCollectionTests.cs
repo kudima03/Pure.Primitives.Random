@@ -1,9 +1,5 @@
-﻿using Pure.Primitives.Abstractions.Bool;
-using Pure.Primitives.Abstractions.Char;
-using Pure.Primitives.Number;
-using Pure.Primitives.Random.Bool;
+﻿using Pure.Primitives.Number;
 using Pure.Primitives.Random.Char;
-using System;
 using System.Collections;
 
 namespace Pure.Primitives.Random.Tests.Char;

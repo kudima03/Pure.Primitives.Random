@@ -1,5 +1,4 @@
 ﻿using Pure.Primitives.Number;
-using Pure.Primitives.Random.Char;
 using Pure.Primitives.Random.String;
 using System.Collections;
 
