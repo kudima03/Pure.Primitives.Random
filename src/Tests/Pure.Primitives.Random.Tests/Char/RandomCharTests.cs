@@ -40,7 +40,7 @@ public sealed record RandomCharTests
 
         Assert.InRange(stdDev, 18000, 20000);
     }
-    
+
     [Fact]
     public void ThrowsExceptionOnGetHashCode()
     {
