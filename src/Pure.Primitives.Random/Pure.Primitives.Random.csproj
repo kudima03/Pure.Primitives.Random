@@ -8,7 +8,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Pure.Primitives.Abstractions" Version="4.0.1" />
+    <PackageReference Include="Pure.Primitives" Version="2.0.0" />
   </ItemGroup>
 
 </Project>
