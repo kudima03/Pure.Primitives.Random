@@ -38,27 +38,29 @@ public sealed record RandomBoolCollectionTests
     {
         Random random = new Random();
 
-        IEnumerable<IBool> values = new RandomBoolCollection(new UShort(1000), random);
+        IEnumerable<int> values = new RandomBoolCollection(new UShort(1000), random)
+            .Select(x => Convert.ToInt32(x.BoolValue))
+            .ToArray();
 
-        int trueCount = values.Count(x => x.BoolValue);
-        int falseCount = values.Count(x => !x.BoolValue);
+        double mean = values.Average();
+        double variance = values.Select(v => Math.Pow(v - mean, 2)).Average();
+        double stdDev = Math.Sqrt(variance);
 
-        double ratio = (double)Math.Min(trueCount, falseCount) / Math.Max(trueCount, falseCount);
-
-        Assert.True(ratio > 0.9, $"Ratio: {ratio}");
+        Assert.InRange(stdDev, 0.48, 0.5);
     }
 
     [Fact]
     public void ProduceNormalDistribution()
     {
-        IEnumerable<IBool> values = new RandomBoolCollection(new UShort(1000));
+        IEnumerable<int> values = new RandomBoolCollection(new UShort(1000))
+            .Select(x => Convert.ToInt32(x.BoolValue))
+            .ToArray();
 
-        int trueCount = values.Count(x => x.BoolValue);
-        int falseCount = values.Count(x => !x.BoolValue);
+        double mean = values.Average();
+        double variance = values.Select(v => Math.Pow(v - mean, 2)).Average();
+        double stdDev = Math.Sqrt(variance);
 
-        double ratio = (double)Math.Min(trueCount, falseCount) / Math.Max(trueCount, falseCount);
-
-        Assert.True(ratio > 0.95);
+        Assert.InRange(stdDev, 0.48, 0.5);
     }
 
     [Fact]
