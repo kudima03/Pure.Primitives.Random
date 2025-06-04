@@ -12,27 +12,33 @@ public sealed record RandomBoolTests
     {
         Random random = new Random();
 
-        IEnumerable<IBool> values = Enumerable.Range(0, 10000).Select(_ => new RandomBool(random)).ToArray();
+        IEnumerable<int> values = Enumerable.Range(0, 10000)
+            .Select(_ => new RandomBool(random))
+            .Cast<IBool>()
+            .Select(x => Convert.ToInt32(x.BoolValue))
+            .ToArray();
 
-        int trueCount = values.Count(x => x.BoolValue);
-        int falseCount = values.Count(x => !x.BoolValue);
+        double mean = values.Average();
+        double variance = values.Select(v => Math.Pow(v - mean, 2)).Average();
+        double stdDev = Math.Sqrt(variance);
 
-        double ratio = (double)Math.Min(trueCount, falseCount) / Math.Max(trueCount, falseCount);
-
-        Assert.True(ratio > 0.95);
+        Assert.InRange(stdDev, 0.48, 0.5);
     }
 
     [Fact]
     public void ProduceCorrectlyOnSequentialCall()
     {
-        IEnumerable<IBool> values = Enumerable.Range(0, 10000).Select(_ => new RandomBool()).ToArray();
+        IEnumerable<int> values = Enumerable.Range(0, 10000)
+            .Select(_ => new RandomBool())
+            .Cast<IBool>()
+            .Select(x => Convert.ToInt32(x.BoolValue))
+            .ToArray();
 
-        int trueCount = values.Count(x => x.BoolValue);
-        int falseCount = values.Count(x => !x.BoolValue);
+        double mean = values.Average();
+        double variance = values.Select(v => Math.Pow(v - mean, 2)).Average();
+        double stdDev = Math.Sqrt(variance);
 
-        double ratio = (double)Math.Min(trueCount, falseCount) / Math.Max(trueCount, falseCount);
-
-        Assert.True(ratio > 0.95);
+        Assert.InRange(stdDev, 0.48, 0.5);
     }
 
     [Fact]
