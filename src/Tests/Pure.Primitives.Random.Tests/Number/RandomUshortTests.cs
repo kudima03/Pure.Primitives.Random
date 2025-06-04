@@ -8,6 +8,20 @@ using Random = System.Random;
 public sealed record RandomUShortTests
 {
     [Fact]
+    public void ProduceMaxValue()
+    {
+        Random random = new Random();
+
+        IEnumerable<int> values = Enumerable.Range(0, 1000000)
+            .Select(_ => new RandomUShort(random))
+            .Cast<INumber<ushort>>()
+            .Select(x => (int)x.NumberValue)
+            .ToHashSet();
+
+        Assert.Contains(ushort.MaxValue, values);
+    }
+
+    [Fact]
     public void ProduceNormalStandardDeviationWithSharedProvider()
     {
         Random random = new Random();
