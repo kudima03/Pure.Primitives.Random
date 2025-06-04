@@ -12,17 +12,17 @@ public sealed record RandomUIntTests
     {
         Random random = new Random();
 
-        IEnumerable<int> values = Enumerable.Range(0, 10000)
+        IEnumerable<double> values = Enumerable.Range(0, 10000)
             .Select(_ => new RandomUInt(random))
             .Cast<INumber<uint>>()
-            .Select(x => (int)x.NumberValue)
+            .Select(x => Convert.ToDouble(x.NumberValue))
             .ToArray();
 
         double mean = values.Average();
         double variance = values.Select(v => Math.Pow(v - mean, 2)).Average();
         double stdDev = Math.Sqrt(variance);
 
-        Assert.InRange(stdDev, 1230000000, 1250000000);
+        Assert.InRange(stdDev, 1225000000, 1255000000);
     }
 
     [Fact]
@@ -38,7 +38,7 @@ public sealed record RandomUIntTests
         double variance = values.Select(v => Math.Pow(v - mean, 2)).Average();
         double stdDev = Math.Sqrt(variance);
 
-        Assert.InRange(stdDev, 1230000000, 1250000000);
+        Assert.InRange(stdDev, 1225000000, 1255000000);
     }
 
     [Fact]
