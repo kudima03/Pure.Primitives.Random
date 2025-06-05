@@ -4,16 +4,18 @@ namespace Pure.Primitives.Random.Number;
 
 public sealed record RandomDecimal : INumber<decimal>
 {
-    private readonly System.Random _random;
+    private readonly decimal _numberValue;
 
     public RandomDecimal() : this(new System.Random()) { }
 
-    public RandomDecimal(System.Random random)
+    public RandomDecimal(System.Random random) : this(Convert.ToDecimal(random.NextDouble())) { }
+
+    private RandomDecimal(decimal numberValue)
     {
-        _random = random;
+        _numberValue = numberValue;
     }
 
-    decimal INumber<decimal>.NumberValue => Convert.ToDecimal(_random.NextDouble());
+    decimal INumber<decimal>.NumberValue => _numberValue;
 
     public override int GetHashCode()
     {

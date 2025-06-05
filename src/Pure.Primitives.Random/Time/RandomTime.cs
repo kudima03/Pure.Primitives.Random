@@ -9,13 +9,22 @@ public sealed record RandomTime : ITime
     public RandomTime() : this(new System.Random()) { }
 
     public RandomTime(System.Random random)
+    : this(new UShort((ushort)random.Next(24)),
+        new UShort((ushort)random.Next(60)),
+        new UShort((ushort)random.Next(60)),
+        new UShort((ushort)random.Next(1000)),
+        new UShort((ushort)random.Next(1000)),
+        new UShort((ushort)random.Next(1000)))
+    { }
+
+    private RandomTime(INumber<ushort> hour, INumber<ushort> minute, INumber<ushort> second, INumber<ushort> millisecond, INumber<ushort> microsecond, INumber<ushort> nanosecond)
     {
-        Hour = new UShort((ushort)random.Next(24));
-        Minute = new UShort((ushort)random.Next(60));
-        Second = new UShort((ushort)random.Next(60));
-        Millisecond = new UShort((ushort)random.Next(1000));
-        Microsecond = new UShort((ushort)random.Next(1000));
-        Nanosecond = new UShort((ushort)random.Next(1000));
+        Hour = hour;
+        Minute = minute;
+        Second = second;
+        Millisecond = millisecond;
+        Microsecond = microsecond;
+        Nanosecond = nanosecond;
     }
 
     public INumber<ushort> Hour { get; }

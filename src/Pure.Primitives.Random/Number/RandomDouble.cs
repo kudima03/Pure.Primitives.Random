@@ -1,19 +1,22 @@
 ﻿using Pure.Primitives.Abstractions.Number;
+using System;
 
 namespace Pure.Primitives.Random.Number;
 
 public sealed record RandomDouble : INumber<double>
 {
-    private readonly System.Random _random;
+    private readonly double _numberValue;
 
     public RandomDouble() : this(new System.Random()) { }
 
-    public RandomDouble(System.Random random)
+    public RandomDouble(System.Random random) : this(random.NextDouble()) { }
+
+    private RandomDouble(double numberValue)
     {
-        _random = random;
+        _numberValue = numberValue;
     }
 
-    double INumber<double>.NumberValue => _random.NextDouble();
+    double INumber<double>.NumberValue => _numberValue;
 
     public override int GetHashCode()
     {

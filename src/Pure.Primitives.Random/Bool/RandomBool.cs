@@ -10,7 +10,7 @@ public sealed record RandomBool : IBool
 
     public RandomBool(System.Random random) : this(Convert.ToBoolean(random.Next(0, 2))) { }
 
-    internal RandomBool(bool boolValue)
+    private RandomBool(bool boolValue)
     {
         _boolValue = boolValue;
     }
