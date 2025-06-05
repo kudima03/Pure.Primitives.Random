@@ -1,5 +1,4 @@
 ﻿using Pure.Primitives.Abstractions.Number;
-using System;
 
 namespace Pure.Primitives.Random.Number;
 
