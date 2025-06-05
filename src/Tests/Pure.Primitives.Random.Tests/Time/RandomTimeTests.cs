@@ -18,13 +18,13 @@ public sealed record RandomTimeTests
             .Select(_ => new RandomTime(random));
 
         Assert.All(values,
-            x => new TimeOnly(x.Hour.NumberValue, 
+            x => new TimeOnly(x.Hour.NumberValue,
                 x.Minute.NumberValue,
                 x.Second.NumberValue,
                 x.Millisecond.NumberValue,
                 x.Microsecond.NumberValue));
 
-        Assert.True(values.All(x=>
+        Assert.True(values.All(x =>
         {
             ushort nanosecond = x.Nanosecond.NumberValue;
             return nanosecond is >= 0 and < 1000;
