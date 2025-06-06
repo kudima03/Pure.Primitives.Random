@@ -12,33 +12,33 @@ public sealed record RandomFloatTests
     {
         Random random = new Random();
 
-        IEnumerable<double> values = Enumerable.Range(0, 10000)
+        IEnumerable<float> values = Enumerable.Range(0, 10000)
             .Select(_ => new RandomFloat(random))
             .Cast<INumber<float>>()
-            .Select(x => Convert.ToDouble(x.NumberValue))
+            .Select(x => x.NumberValue)
             .ToArray();
 
         double mean = values.Average();
         double variance = values.Select(v => Math.Pow(v - mean, 2)).Average();
         double stdDev = Math.Sqrt(variance);
 
-        Assert.InRange(stdDev, -1, 1);
+        Assert.InRange(stdDev, 0.1, 1);
     }
 
     [Fact]
     public void ProduceNormalStandardDeviation()
     {
-        IEnumerable<int> values = Enumerable.Range(0, 10000)
+        IEnumerable<float> values = Enumerable.Range(0, 10000)
             .Select(_ => new RandomFloat())
             .Cast<INumber<float>>()
-            .Select(x => (int)x.NumberValue)
+            .Select(x => x.NumberValue)
             .ToArray();
 
         double mean = values.Average();
         double variance = values.Select(v => Math.Pow(v - mean, 2)).Average();
         double stdDev = Math.Sqrt(variance);
 
-        Assert.InRange(stdDev, -1, 1);
+        Assert.InRange(stdDev, 0.1, 1);
     }
 
     [Fact]
