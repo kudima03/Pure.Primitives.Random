@@ -4,16 +4,18 @@ namespace Pure.Primitives.Random.Number;
 
 public sealed record RandomFloat : INumber<float>
 {
-    private readonly System.Random _random;
+    private readonly float _numberValue;
 
     public RandomFloat() : this(new System.Random()) { }
 
-    public RandomFloat(System.Random random)
+    public RandomFloat(System.Random random) : this(random.NextSingle()) { }
+
+    private RandomFloat(float numberValue)
     {
-        _random = random;
+        _numberValue = numberValue;
     }
 
-    float INumber<float>.NumberValue => _random.NextSingle();
+    float INumber<float>.NumberValue => _numberValue;
 
     public override int GetHashCode()
     {

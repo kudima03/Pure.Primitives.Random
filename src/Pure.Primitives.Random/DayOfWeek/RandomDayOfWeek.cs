@@ -6,16 +6,18 @@ namespace Pure.Primitives.Random.DayOfWeek;
 
 public sealed record RandomDayOfWeek : IDayOfWeek
 {
-    private readonly System.Random _random;
+    private readonly INumber<ushort> _dayNumberValue;
 
     public RandomDayOfWeek() : this(new System.Random()) { }
 
-    public RandomDayOfWeek(System.Random random)
+    public RandomDayOfWeek(System.Random random) : this(new UShort((ushort)random.Next(0, 8))) { }
+
+    private RandomDayOfWeek(INumber<ushort> dayNumberValue)
     {
-        _random = random;
+        _dayNumberValue = dayNumberValue;
     }
 
-    public INumber<ushort> DayNumberValue => new UShort((ushort)_random.Next(0, 8));
+    INumber<ushort> IDayOfWeek.DayNumberValue => _dayNumberValue;
 
     public override int GetHashCode()
     {

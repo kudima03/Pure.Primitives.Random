@@ -1,6 +1,5 @@
 ﻿using Pure.Primitives.Number;
 using Pure.Primitives.Random.Number;
-using System;
 using System.Collections;
 
 namespace Pure.Primitives.Random.Tests.Number;

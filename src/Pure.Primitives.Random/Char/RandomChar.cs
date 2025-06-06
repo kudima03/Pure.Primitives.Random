@@ -12,7 +12,7 @@ public sealed record RandomChar : IChar
         this(Convert.ToChar(random.Next(char.MinValue, char.MaxValue)))
     { }
 
-    internal RandomChar(char charValue)
+    private RandomChar(char charValue)
     {
         _charValue = charValue;
     }

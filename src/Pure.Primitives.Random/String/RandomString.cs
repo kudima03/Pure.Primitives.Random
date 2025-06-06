@@ -9,28 +9,26 @@ using Char = Primitives.Char.Char;
 
 public sealed record RandomString : IString
 {
-    private readonly INumber<ushort> _length;
-
-    private readonly System.Random _random;
+    private readonly string _textValue;
 
     public RandomString(INumber<ushort> length) : this(length, new System.Random()) { }
 
-    public RandomString(INumber<ushort> length, System.Random random)
+    public RandomString(INumber<ushort> length, System.Random random) :
+        this(string.Join(string.Empty, Enumerable.Range(0, length.NumberValue)
+            .Select(_ => random.Next(char.MinValue, char.MaxValue))
+            .Select(Convert.ToChar)))
+    { }
+
+    private RandomString(string textValue)
     {
-        _random = random;
-        _length = length;
+        _textValue = textValue;
     }
 
-    private string ValueInternal => string.Join(string.Empty,
-        Enumerable.Range(0, _length.NumberValue)
-            .Select(_ => _random.Next(char.MinValue, char.MaxValue))
-            .Select(Convert.ToChar));
-
-    string IString.TextValue => ValueInternal;
+    string IString.TextValue => _textValue;
 
     public IEnumerator<IChar> GetEnumerator()
     {
-        return ValueInternal.Select(x => new Char(x)).GetEnumerator();
+        return _textValue.Select(x => new Char(x)).GetEnumerator();
     }
 
     public override int GetHashCode()

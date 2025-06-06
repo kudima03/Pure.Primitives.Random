@@ -4,16 +4,20 @@ namespace Pure.Primitives.Random.Number;
 
 public sealed record RandomUShort : INumber<ushort>
 {
-    private readonly System.Random _random;
+    private readonly ushort _numberValue;
 
     public RandomUShort() : this(new System.Random()) { }
 
-    public RandomUShort(System.Random random)
+    public RandomUShort(System.Random random) :
+        this(Convert.ToUInt16(random.Next(ushort.MinValue, ushort.MaxValue + 1)))
+    { }
+
+    public RandomUShort(ushort numberValue)
     {
-        _random = random;
+        _numberValue = numberValue;
     }
 
-    ushort INumber<ushort>.NumberValue => Convert.ToUInt16(_random.Next(ushort.MinValue, ushort.MaxValue + 1));
+    ushort INumber<ushort>.NumberValue => _numberValue;
 
     public override int GetHashCode()
     {

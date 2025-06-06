@@ -22,7 +22,7 @@ public sealed record RandomDecimalTests
         double variance = values.Select(v => Math.Pow(v - mean, 2)).Average();
         double stdDev = Math.Sqrt(variance);
 
-        Assert.InRange(stdDev, 0, 1);
+        Assert.InRange(stdDev, 0.1, 1);
     }
 
     [Fact]
@@ -38,7 +38,7 @@ public sealed record RandomDecimalTests
         double variance = values.Select(v => Math.Pow(v - mean, 2)).Average();
         double stdDev = Math.Sqrt(variance);
 
-        Assert.InRange(stdDev, 0, 1);
+        Assert.InRange(stdDev, 0.1, 1);
     }
 
     [Fact]

@@ -4,24 +4,18 @@ namespace Pure.Primitives.Random.Number;
 
 public sealed record RandomInt : INumber<int>
 {
-    private readonly System.Random _random;
+    private readonly int _numberValue;
 
     public RandomInt() : this(new System.Random()) { }
 
     public RandomInt(System.Random random)
     {
-        _random = random;
+        byte[] bytes = new byte[4];
+        random.NextBytes(bytes);
+        _numberValue = BitConverter.ToInt32(bytes);
     }
 
-    int INumber<int>.NumberValue
-    {
-        get
-        {
-            byte[] bytes = new byte[4];
-            _random.NextBytes(bytes);
-            return BitConverter.ToInt32(bytes);
-        }
-    }
+    int INumber<int>.NumberValue => _numberValue;
 
     public override int GetHashCode()
     {
