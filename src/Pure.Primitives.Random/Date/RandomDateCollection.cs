@@ -1,9 +1,8 @@
 ﻿using Pure.Primitives.Abstractions.Date;
 using Pure.Primitives.Abstractions.Number;
-using Pure.Primitives.Random.Date;
 using System.Collections;
 
-namespace Pure.Primitives.Random.Number;
+namespace Pure.Primitives.Random.Date;
 
 public sealed record RandomDateCollection : IEnumerable<IDate>
 {
