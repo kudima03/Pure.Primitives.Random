@@ -7,6 +7,15 @@
     <CheckForOverflowUnderflow>true</CheckForOverflowUnderflow>
   </PropertyGroup>
 
+  <PropertyGroup>
+    <PackageId>Pure.Primitives.Random</PackageId>
+    <RootNamespace>Pure.Primitives.Random</RootNamespace>
+    <AssemblyName>Pure.Primitives.Random</AssemblyName>
+    <Authors>Dmitry Kurochkin</Authors>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageProjectUrl>https://github.com/kudima03/Pure.Primitives.Random</PackageProjectUrl>
+  </PropertyGroup>
+
   <ItemGroup>
     <PackageReference Include="Pure.Primitives" Version="2.0.0" />
   </ItemGroup>
