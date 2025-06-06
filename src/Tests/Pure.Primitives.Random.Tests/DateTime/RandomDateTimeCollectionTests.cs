@@ -204,12 +204,12 @@ public sealed record RandomDateTimeCollectionTests
     [Fact]
     public void ThrowsExceptionOnGetHashCode()
     {
-        Assert.Throws<NotSupportedException>(() => new RandomDateTime().GetHashCode());
+        Assert.Throws<NotSupportedException>(() => new RandomDateTimeCollection(new MinUshort()).GetHashCode());
     }
 
     [Fact]
     public void ThrowsExceptionOnToString()
     {
-        Assert.Throws<NotSupportedException>(() => new RandomDateTime().ToString());
+        Assert.Throws<NotSupportedException>(() => new RandomDateTimeCollection(new MinUshort()).ToString());
     }
 }
