@@ -8,7 +8,7 @@ using Random = System.Random;
 public sealed record RandomDateTimeTests
 {
     [Fact]
-    public void ProduceCorrectTime()
+    public void ProduceCorrectDateTime()
     {
         Random random = new Random();
 
