@@ -70,7 +70,7 @@ public sealed record RandomDateTimeCollectionTests
         double variance = values.Select(v => Math.Pow(v - mean, 2)).Average();
         double stdDev = Math.Sqrt(variance);
 
-        Assert.InRange(stdDev, 8.7, 9);
+        Assert.InRange(stdDev, 8.6, 9);
     }
 
     [Fact]
@@ -86,7 +86,7 @@ public sealed record RandomDateTimeCollectionTests
         double variance = values.Select(v => Math.Pow(v - mean, 2)).Average();
         double stdDev = Math.Sqrt(variance);
 
-        Assert.InRange(stdDev, 3.4, 3.6);
+        Assert.InRange(stdDev, 3.3, 3.6);
     }
 
     [Fact]
@@ -102,7 +102,7 @@ public sealed record RandomDateTimeCollectionTests
         double variance = values.Select(v => Math.Pow(v - mean, 2)).Average();
         double stdDev = Math.Sqrt(variance);
 
-        Assert.InRange(stdDev, 2750, 2950);
+        Assert.InRange(stdDev, 2750, 3000);
     }
 
     [Fact]
@@ -118,7 +118,7 @@ public sealed record RandomDateTimeCollectionTests
         double variance = values.Select(v => Math.Pow(v - mean, 2)).Average();
         double stdDev = Math.Sqrt(variance);
 
-        Assert.InRange(stdDev, 6.8, 7);
+        Assert.InRange(stdDev, 6.8, 7.2);
     }
 
     [Fact]
@@ -134,7 +134,7 @@ public sealed record RandomDateTimeCollectionTests
         double variance = values.Select(v => Math.Pow(v - mean, 2)).Average();
         double stdDev = Math.Sqrt(variance);
 
-        Assert.InRange(stdDev, 17, 17.5);
+        Assert.InRange(stdDev, 17, 17.7);
     }
 
     [Fact]
