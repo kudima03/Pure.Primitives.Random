@@ -12,7 +12,7 @@ public sealed record RandomUShort : INumber<ushort>
         this(Convert.ToUInt16(random.Next(ushort.MinValue, ushort.MaxValue + 1)))
     { }
 
-    public RandomUShort(ushort numberValue)
+    private RandomUShort(ushort numberValue)
     {
         _numberValue = numberValue;
     }
