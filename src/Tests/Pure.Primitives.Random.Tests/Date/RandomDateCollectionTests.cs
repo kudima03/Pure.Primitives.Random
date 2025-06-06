@@ -1,6 +1,6 @@
 ﻿using Pure.Primitives.Abstractions.Date;
 using Pure.Primitives.Number;
-using Pure.Primitives.Random.Number;
+using Pure.Primitives.Random.Date;
 using System.Collections;
 
 namespace Pure.Primitives.Random.Tests.Date;
