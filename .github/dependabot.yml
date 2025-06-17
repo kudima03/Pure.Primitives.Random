@@ -1,0 +1,12 @@
+version: 2
+updates:
+- package-ecosystem: nuget
+  directories:
+    - "src/Pure.Primitives.Random"
+    - "src/Tests/Pure.Primitives.Random.Tests"
+  schedule:
+    interval: daily
+- package-ecosystem: "github-actions"
+  directory: "/"
+  schedule:
+    interval: weekly
