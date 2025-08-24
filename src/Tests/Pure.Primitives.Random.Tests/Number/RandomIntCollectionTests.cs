@@ -15,9 +15,11 @@ public sealed record RandomIntCollectionTests
         INumber<int> max = new RandomInt(new Int(10), new MaxInt());
         INumber<int> min = new RandomInt(new Zero<int>(), max);
 
-        IEnumerable<int> values = new RandomIntCollection(new MaxUshort(), min, max).Select(x => x.NumberValue);
+        IEnumerable<int> values = new RandomIntCollection(new MaxUshort(), min, max).Select(x =>
+            x.NumberValue
+        );
 
-        Assert.True(values.All(x=> min.NumberValue <= x && x < max.NumberValue));
+        Assert.True(values.All(x => min.NumberValue <= x && x < max.NumberValue));
     }
 
     [Fact]
@@ -77,12 +79,16 @@ public sealed record RandomIntCollectionTests
     [Fact]
     public void ThrowsExceptionOnGetHashCode()
     {
-        Assert.Throws<NotSupportedException>(() => new RandomIntCollection(new MinUshort()).GetHashCode());
+        Assert.Throws<NotSupportedException>(() =>
+            new RandomIntCollection(new MinUshort()).GetHashCode()
+        );
     }
 
     [Fact]
     public void ThrowsExceptionOnToString()
     {
-        Assert.Throws<NotSupportedException>(() => new RandomIntCollection(new MinUshort()).ToString());
+        Assert.Throws<NotSupportedException>(() =>
+            new RandomIntCollection(new MinUshort()).ToString()
+        );
     }
 }

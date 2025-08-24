@@ -16,13 +16,21 @@ public sealed record RandomIntCollection : IEnumerable<INumber<int>>
 
     private readonly Random _random;
 
-    public RandomIntCollection(INumber<ushort> count) : this(count, Random.Shared) { }
+    public RandomIntCollection(INumber<ushort> count)
+        : this(count, Random.Shared) { }
 
-    public RandomIntCollection(INumber<ushort> count, Random random) : this(count, new MinInt(), new MaxInt(), random) { }
+    public RandomIntCollection(INumber<ushort> count, Random random)
+        : this(count, new MinInt(), new MaxInt(), random) { }
 
-    public RandomIntCollection(INumber<ushort> count, INumber<int> min, INumber<int> max) : this(count, min, max, Random.Shared) { }
+    public RandomIntCollection(INumber<ushort> count, INumber<int> min, INumber<int> max)
+        : this(count, min, max, Random.Shared) { }
 
-    public RandomIntCollection(INumber<ushort> count, INumber<int> min, INumber<int> max, Random random)
+    public RandomIntCollection(
+        INumber<ushort> count,
+        INumber<int> min,
+        INumber<int> max,
+        Random random
+    )
     {
         _minValue = min;
         _maxValue = max;
@@ -32,7 +40,10 @@ public sealed record RandomIntCollection : IEnumerable<INumber<int>>
 
     public IEnumerator<INumber<int>> GetEnumerator()
     {
-        return Enumerable.Range(0, _count.NumberValue).Select(_ => new RandomInt(_minValue, _maxValue, _random)).GetEnumerator();
+        return Enumerable
+            .Range(0, _count.NumberValue)
+            .Select(_ => new RandomInt(_minValue, _maxValue, _random))
+            .GetEnumerator();
     }
 
     public override int GetHashCode()
