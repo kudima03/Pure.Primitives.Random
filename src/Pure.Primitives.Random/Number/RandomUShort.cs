@@ -1,23 +1,32 @@
 ﻿using Pure.Primitives.Abstractions.Number;
+using Pure.Primitives.Number;
 
 namespace Pure.Primitives.Random.Number;
 
+using Random = System.Random;
+
 public sealed record RandomUShort : INumber<ushort>
 {
-    private readonly ushort _numberValue;
+    private readonly Lazy<ushort> _lazyValue;
 
     public RandomUShort()
-        : this(new System.Random()) { }
+        : this(Random.Shared) { }
 
-    public RandomUShort(System.Random random)
-        : this(Convert.ToUInt16(random.Next(ushort.MinValue, ushort.MaxValue + 1))) { }
+    public RandomUShort(Random random)
+        : this(new MinUshort(), new MaxUshort(), random) { }
 
-    private RandomUShort(ushort numberValue)
+    public RandomUShort(INumber<ushort> min, INumber<ushort> max)
+        : this(min, max, Random.Shared) { }
+
+    public RandomUShort(INumber<ushort> min, INumber<ushort> max, Random random)
+        : this(new Lazy<ushort>(() => (ushort)random.Next(min.NumberValue, max.NumberValue))) { }
+
+    private RandomUShort(Lazy<ushort> lazyValue)
     {
-        _numberValue = numberValue;
+        _lazyValue = lazyValue;
     }
 
-    ushort INumber<ushort>.NumberValue => _numberValue;
+    ushort INumber<ushort>.NumberValue => _lazyValue.Value;
 
     public override int GetHashCode()
     {
