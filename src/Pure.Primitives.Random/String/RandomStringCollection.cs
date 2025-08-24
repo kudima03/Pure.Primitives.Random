@@ -12,9 +12,14 @@ public sealed record RandomStringCollection : IEnumerable<IString>
 
     private readonly System.Random _random;
 
-    public RandomStringCollection(INumber<ushort> count, INumber<ushort> length) : this(count, length, new System.Random()) { }
+    public RandomStringCollection(INumber<ushort> count, INumber<ushort> length)
+        : this(count, length, new System.Random()) { }
 
-    public RandomStringCollection(INumber<ushort> count, INumber<ushort> length, System.Random random)
+    public RandomStringCollection(
+        INumber<ushort> count,
+        INumber<ushort> length,
+        System.Random random
+    )
     {
         _count = count;
         _random = random;
@@ -23,7 +28,10 @@ public sealed record RandomStringCollection : IEnumerable<IString>
 
     public IEnumerator<IString> GetEnumerator()
     {
-        return Enumerable.Range(0, _count.NumberValue).Select(_ => new RandomString(_length, _random)).GetEnumerator();
+        return Enumerable
+            .Range(0, _count.NumberValue)
+            .Select(_ => new RandomString(_length, _random))
+            .GetEnumerator();
     }
 
     public override int GetHashCode()

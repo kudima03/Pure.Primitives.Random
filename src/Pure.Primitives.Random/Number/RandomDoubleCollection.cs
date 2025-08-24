@@ -9,7 +9,8 @@ public sealed record RandomDoubleCollection : IEnumerable<INumber<double>>
 
     private readonly System.Random _random;
 
-    public RandomDoubleCollection(INumber<ushort> count) : this(count, new System.Random()) { }
+    public RandomDoubleCollection(INumber<ushort> count)
+        : this(count, new System.Random()) { }
 
     public RandomDoubleCollection(INumber<ushort> count, System.Random random)
     {
@@ -19,7 +20,10 @@ public sealed record RandomDoubleCollection : IEnumerable<INumber<double>>
 
     public IEnumerator<INumber<double>> GetEnumerator()
     {
-        return Enumerable.Range(0, _count.NumberValue).Select(_ => new RandomDouble(_random)).GetEnumerator();
+        return Enumerable
+            .Range(0, _count.NumberValue)
+            .Select(_ => new RandomDouble(_random))
+            .GetEnumerator();
     }
 
     public override int GetHashCode()

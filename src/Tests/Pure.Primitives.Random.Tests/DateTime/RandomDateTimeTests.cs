@@ -12,24 +12,31 @@ public sealed record RandomDateTimeTests
     {
         Random random = new Random();
 
-        IEnumerable<IDateTime> values = Enumerable.Range(0, 10000)
+        IEnumerable<IDateTime> values = Enumerable
+            .Range(0, 10000)
             .Select(_ => new RandomDateTime(random));
 
-        Assert.All(values,
-            x => new System.DateTime(x.Year.NumberValue,
+        Assert.All(
+            values,
+            x => new System.DateTime(
+                x.Year.NumberValue,
                 x.Month.NumberValue,
                 x.Day.NumberValue,
                 x.Hour.NumberValue,
                 x.Minute.NumberValue,
                 x.Second.NumberValue,
                 x.Millisecond.NumberValue,
-                x.Microsecond.NumberValue));
+                x.Microsecond.NumberValue
+            )
+        );
 
-        Assert.True(values.All(x =>
-        {
-            ushort nanosecond = x.Nanosecond.NumberValue;
-            return nanosecond is >= 0 and < 1000;
-        }));
+        Assert.True(
+            values.All(x =>
+            {
+                ushort nanosecond = x.Nanosecond.NumberValue;
+                return nanosecond is >= 0 and < 1000;
+            })
+        );
     }
 
     [Fact]
@@ -37,7 +44,8 @@ public sealed record RandomDateTimeTests
     {
         Random random = new Random();
 
-        IEnumerable<int> values = Enumerable.Range(0, 10000)
+        IEnumerable<int> values = Enumerable
+            .Range(0, 10000)
             .Select(_ => new RandomDateTime(random))
             .Cast<IDateTime>()
             .Select(x => (int)x.Day.NumberValue)
@@ -55,7 +63,8 @@ public sealed record RandomDateTimeTests
     {
         Random random = new Random();
 
-        IEnumerable<int> values = Enumerable.Range(0, 10000)
+        IEnumerable<int> values = Enumerable
+            .Range(0, 10000)
             .Select(_ => new RandomDateTime(random))
             .Cast<IDateTime>()
             .Select(x => (int)x.Month.NumberValue)
@@ -73,7 +82,8 @@ public sealed record RandomDateTimeTests
     {
         Random random = new Random();
 
-        IEnumerable<int> values = Enumerable.Range(0, 10000)
+        IEnumerable<int> values = Enumerable
+            .Range(0, 10000)
             .Select(_ => new RandomDateTime(random))
             .Cast<IDateTime>()
             .Select(x => (int)x.Year.NumberValue)
@@ -91,7 +101,8 @@ public sealed record RandomDateTimeTests
     {
         Random random = new Random();
 
-        IEnumerable<int> values = Enumerable.Range(0, 10000)
+        IEnumerable<int> values = Enumerable
+            .Range(0, 10000)
             .Select(_ => new RandomDateTime(random))
             .Cast<IDateTime>()
             .Select(x => (int)x.Hour.NumberValue)
@@ -109,7 +120,8 @@ public sealed record RandomDateTimeTests
     {
         Random random = new Random();
 
-        IEnumerable<int> values = Enumerable.Range(0, 10000)
+        IEnumerable<int> values = Enumerable
+            .Range(0, 10000)
             .Select(_ => new RandomDateTime(random))
             .Cast<IDateTime>()
             .Select(x => (int)x.Minute.NumberValue)
@@ -127,7 +139,8 @@ public sealed record RandomDateTimeTests
     {
         Random random = new Random();
 
-        IEnumerable<int> values = Enumerable.Range(0, 10000)
+        IEnumerable<int> values = Enumerable
+            .Range(0, 10000)
             .Select(_ => new RandomDateTime(random))
             .Cast<IDateTime>()
             .Select(x => (int)x.Second.NumberValue)
@@ -145,7 +158,8 @@ public sealed record RandomDateTimeTests
     {
         Random random = new Random();
 
-        IEnumerable<int> values = Enumerable.Range(0, 10000)
+        IEnumerable<int> values = Enumerable
+            .Range(0, 10000)
             .Select(_ => new RandomDateTime(random))
             .Cast<IDateTime>()
             .Select(x => (int)x.Millisecond.NumberValue)
@@ -163,7 +177,8 @@ public sealed record RandomDateTimeTests
     {
         Random random = new Random();
 
-        IEnumerable<int> values = Enumerable.Range(0, 10000)
+        IEnumerable<int> values = Enumerable
+            .Range(0, 10000)
             .Select(_ => new RandomDateTime(random))
             .Cast<IDateTime>()
             .Select(x => (int)x.Microsecond.NumberValue)
@@ -181,7 +196,8 @@ public sealed record RandomDateTimeTests
     {
         Random random = new Random();
 
-        IEnumerable<int> values = Enumerable.Range(0, 10000)
+        IEnumerable<int> values = Enumerable
+            .Range(0, 10000)
             .Select(_ => new RandomDateTime(random))
             .Cast<IDateTime>()
             .Select(x => (int)x.Nanosecond.NumberValue)

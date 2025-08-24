@@ -10,7 +10,8 @@ public sealed record RandomDayOfWeekCollection : IEnumerable<IDayOfWeek>
 
     private readonly System.Random _random;
 
-    public RandomDayOfWeekCollection(INumber<ushort> count) : this(count, new System.Random()) { }
+    public RandomDayOfWeekCollection(INumber<ushort> count)
+        : this(count, new System.Random()) { }
 
     public RandomDayOfWeekCollection(INumber<ushort> count, System.Random random)
     {
@@ -20,7 +21,10 @@ public sealed record RandomDayOfWeekCollection : IEnumerable<IDayOfWeek>
 
     public IEnumerator<IDayOfWeek> GetEnumerator()
     {
-        return Enumerable.Range(0, _count.NumberValue).Select(_ => new RandomDayOfWeek(_random)).GetEnumerator();
+        return Enumerable
+            .Range(0, _count.NumberValue)
+            .Select(_ => new RandomDayOfWeek(_random))
+            .GetEnumerator();
     }
 
     public override int GetHashCode()

@@ -38,21 +38,26 @@ public sealed record RandomTimeCollectionTests
     {
         Random random = new Random();
 
-        IEnumerable<ITime> values = Enumerable.Range(0, 10000)
-            .Select(_ => new RandomTime(random));
+        IEnumerable<ITime> values = Enumerable.Range(0, 10000).Select(_ => new RandomTime(random));
 
-        Assert.All(values,
-            x => new TimeOnly(x.Hour.NumberValue,
+        Assert.All(
+            values,
+            x => new TimeOnly(
+                x.Hour.NumberValue,
                 x.Minute.NumberValue,
                 x.Second.NumberValue,
                 x.Millisecond.NumberValue,
-                x.Microsecond.NumberValue));
+                x.Microsecond.NumberValue
+            )
+        );
 
-        Assert.True(values.All(x =>
-        {
-            ushort nanosecond = x.Nanosecond.NumberValue;
-            return nanosecond is >= 0 and < 1000;
-        }));
+        Assert.True(
+            values.All(x =>
+            {
+                ushort nanosecond = x.Nanosecond.NumberValue;
+                return nanosecond is >= 0 and < 1000;
+            })
+        );
     }
 
     [Fact]
@@ -154,12 +159,16 @@ public sealed record RandomTimeCollectionTests
     [Fact]
     public void ThrowsExceptionOnGetHashCode()
     {
-        Assert.Throws<NotSupportedException>(() => new RandomTimeCollection(new MinUshort()).GetHashCode());
+        Assert.Throws<NotSupportedException>(() =>
+            new RandomTimeCollection(new MinUshort()).GetHashCode()
+        );
     }
 
     [Fact]
     public void ThrowsExceptionOnToString()
     {
-        Assert.Throws<NotSupportedException>(() => new RandomTimeCollection(new MinUshort()).ToString());
+        Assert.Throws<NotSupportedException>(() =>
+            new RandomTimeCollection(new MinUshort()).ToString()
+        );
     }
 }

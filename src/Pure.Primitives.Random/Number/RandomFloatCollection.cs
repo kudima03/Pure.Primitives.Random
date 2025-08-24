@@ -9,7 +9,8 @@ public sealed record RandomFloatCollection : IEnumerable<INumber<float>>
 
     private readonly System.Random _random;
 
-    public RandomFloatCollection(INumber<ushort> count) : this(count, new System.Random()) { }
+    public RandomFloatCollection(INumber<ushort> count)
+        : this(count, new System.Random()) { }
 
     public RandomFloatCollection(INumber<ushort> count, System.Random random)
     {
@@ -19,7 +20,10 @@ public sealed record RandomFloatCollection : IEnumerable<INumber<float>>
 
     public IEnumerator<INumber<float>> GetEnumerator()
     {
-        return Enumerable.Range(0, _count.NumberValue).Select(_ => new RandomFloat(_random)).GetEnumerator();
+        return Enumerable
+            .Range(0, _count.NumberValue)
+            .Select(_ => new RandomFloat(_random))
+            .GetEnumerator();
     }
 
     public override int GetHashCode()

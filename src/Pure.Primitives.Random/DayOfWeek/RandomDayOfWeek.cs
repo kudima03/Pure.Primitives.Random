@@ -8,9 +8,11 @@ public sealed record RandomDayOfWeek : IDayOfWeek
 {
     private readonly INumber<ushort> _dayNumberValue;
 
-    public RandomDayOfWeek() : this(new System.Random()) { }
+    public RandomDayOfWeek()
+        : this(new System.Random()) { }
 
-    public RandomDayOfWeek(System.Random random) : this(new UShort((ushort)random.Next(0, 8))) { }
+    public RandomDayOfWeek(System.Random random)
+        : this(new UShort((ushort)random.Next(0, 8))) { }
 
     private RandomDayOfWeek(INumber<ushort> dayNumberValue)
     {

@@ -6,9 +6,11 @@ public sealed record RandomFloat : INumber<float>
 {
     private readonly float _numberValue;
 
-    public RandomFloat() : this(new System.Random()) { }
+    public RandomFloat()
+        : this(new System.Random()) { }
 
-    public RandomFloat(System.Random random) : this(random.NextSingle()) { }
+    public RandomFloat(System.Random random)
+        : this(random.NextSingle()) { }
 
     private RandomFloat(float numberValue)
     {

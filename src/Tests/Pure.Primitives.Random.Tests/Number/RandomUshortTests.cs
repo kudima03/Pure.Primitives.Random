@@ -12,7 +12,8 @@ public sealed record RandomUShortTests
     {
         Random random = new Random();
 
-        IEnumerable<int> values = Enumerable.Range(0, 1000000)
+        IEnumerable<int> values = Enumerable
+            .Range(0, 1000000)
             .Select(_ => new RandomUShort(random))
             .Cast<INumber<ushort>>()
             .Select(x => (int)x.NumberValue)
@@ -26,7 +27,8 @@ public sealed record RandomUShortTests
     {
         Random random = new Random();
 
-        IEnumerable<int> values = Enumerable.Range(0, 10000)
+        IEnumerable<int> values = Enumerable
+            .Range(0, 10000)
             .Select(_ => new RandomUShort(random))
             .Cast<INumber<ushort>>()
             .Select(x => (int)x.NumberValue)
@@ -42,7 +44,8 @@ public sealed record RandomUShortTests
     [Fact]
     public void ProduceNormalStandardDeviation()
     {
-        IEnumerable<int> values = Enumerable.Range(0, 10000)
+        IEnumerable<int> values = Enumerable
+            .Range(0, 10000)
             .Select(_ => new RandomUShort())
             .Cast<INumber<ushort>>()
             .Select(x => (int)x.NumberValue)

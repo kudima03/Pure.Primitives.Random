@@ -6,11 +6,11 @@ public sealed record RandomUShort : INumber<ushort>
 {
     private readonly ushort _numberValue;
 
-    public RandomUShort() : this(new System.Random()) { }
+    public RandomUShort()
+        : this(new System.Random()) { }
 
-    public RandomUShort(System.Random random) :
-        this(Convert.ToUInt16(random.Next(ushort.MinValue, ushort.MaxValue + 1)))
-    { }
+    public RandomUShort(System.Random random)
+        : this(Convert.ToUInt16(random.Next(ushort.MinValue, ushort.MaxValue + 1))) { }
 
     private RandomUShort(ushort numberValue)
     {

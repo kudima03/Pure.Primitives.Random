@@ -12,7 +12,8 @@ public sealed record RandomDayOfWeekTests
     {
         Random random = new Random();
 
-        IEnumerable<double> values = Enumerable.Range(0, 10000)
+        IEnumerable<double> values = Enumerable
+            .Range(0, 10000)
             .Select(_ => new RandomDayOfWeek(random))
             .Cast<IDayOfWeek>()
             .Select(x => Convert.ToDouble(x.DayNumberValue.NumberValue))
@@ -28,7 +29,8 @@ public sealed record RandomDayOfWeekTests
     [Fact]
     public void ProduceNormalStandardDeviation()
     {
-        IEnumerable<double> values = Enumerable.Range(0, 10000)
+        IEnumerable<double> values = Enumerable
+            .Range(0, 10000)
             .Select(_ => new RandomDayOfWeek())
             .Cast<IDayOfWeek>()
             .Select(x => Convert.ToDouble(x.DayNumberValue.NumberValue))

@@ -6,9 +6,11 @@ public sealed record RandomDecimal : INumber<decimal>
 {
     private readonly decimal _numberValue;
 
-    public RandomDecimal() : this(new System.Random()) { }
+    public RandomDecimal()
+        : this(new System.Random()) { }
 
-    public RandomDecimal(System.Random random) : this(Convert.ToDecimal(random.NextDouble())) { }
+    public RandomDecimal(System.Random random)
+        : this(Convert.ToDecimal(random.NextDouble())) { }
 
     private RandomDecimal(decimal numberValue)
     {

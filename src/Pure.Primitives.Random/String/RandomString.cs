@@ -11,12 +11,19 @@ public sealed record RandomString : IString
 {
     private readonly string _textValue;
 
-    public RandomString(INumber<ushort> length) : this(length, new System.Random()) { }
+    public RandomString(INumber<ushort> length)
+        : this(length, new System.Random()) { }
 
-    public RandomString(INumber<ushort> length, System.Random random) :
-        this(string.Join(string.Empty, Enumerable.Range(0, length.NumberValue)
-            .Select(_ => random.Next(char.MinValue, char.MaxValue))
-            .Select(Convert.ToChar)))
+    public RandomString(INumber<ushort> length, System.Random random)
+        : this(
+            string.Join(
+                string.Empty,
+                Enumerable
+                    .Range(0, length.NumberValue)
+                    .Select(_ => random.Next(char.MinValue, char.MaxValue))
+                    .Select(Convert.ToChar)
+            )
+        )
     { }
 
     private RandomString(string textValue)

@@ -12,7 +12,8 @@ public sealed record RandomBoolTests
     {
         Random random = new Random();
 
-        IEnumerable<int> values = Enumerable.Range(0, 10000)
+        IEnumerable<int> values = Enumerable
+            .Range(0, 10000)
             .Select(_ => new RandomBool(random))
             .Cast<IBool>()
             .Select(x => Convert.ToInt32(x.BoolValue))
@@ -28,7 +29,8 @@ public sealed record RandomBoolTests
     [Fact]
     public void ProduceCorrectlyOnSequentialCall()
     {
-        IEnumerable<int> values = Enumerable.Range(0, 10000)
+        IEnumerable<int> values = Enumerable
+            .Range(0, 10000)
             .Select(_ => new RandomBool())
             .Cast<IBool>()
             .Select(x => Convert.ToInt32(x.BoolValue))

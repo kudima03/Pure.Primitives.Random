@@ -12,7 +12,8 @@ public sealed record RandomCharTests
     {
         Random random = new Random();
 
-        IEnumerable<int> values = Enumerable.Range(0, 10000)
+        IEnumerable<int> values = Enumerable
+            .Range(0, 10000)
             .Select(_ => new RandomChar(random))
             .Cast<IChar>()
             .Select(x => Convert.ToInt32(x.CharValue))
@@ -28,7 +29,8 @@ public sealed record RandomCharTests
     [Fact]
     public void ProduceNormalStandardDeviation()
     {
-        IEnumerable<int> values = Enumerable.Range(0, 10000)
+        IEnumerable<int> values = Enumerable
+            .Range(0, 10000)
             .Select(_ => new RandomChar())
             .Cast<IChar>()
             .Select(x => Convert.ToInt32(x.CharValue))
