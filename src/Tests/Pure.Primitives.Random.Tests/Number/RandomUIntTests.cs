@@ -1,4 +1,5 @@
 ﻿using Pure.Primitives.Abstractions.Number;
+using Pure.Primitives.Number;
 using Pure.Primitives.Random.Number;
 
 namespace Pure.Primitives.Random.Tests.Number;
@@ -8,11 +9,36 @@ using Random = System.Random;
 public sealed record RandomUIntTests
 {
     [Fact]
+    public void RangeAffectGeneration()
+    {
+        INumber<uint> max = new RandomUInt(new UInt(10), new MaxUint());
+        INumber<uint> min = new RandomUInt(new Zero<uint>(), max);
+
+        IEnumerable<uint> values = Enumerable
+            .Range(0, 10000)
+            .Select(_ => new RandomUInt(min, max))
+            .Cast<INumber<uint>>()
+            .Select(x => x.NumberValue)
+            .ToArray();
+
+        Assert.True(values.All(x => min.NumberValue <= x && x < max.NumberValue));
+    }
+
+    [Fact]
+    public void ThrowsExceptionOnMinValueGreaterThanMaxValue()
+    {
+        Assert.Throws<ArgumentOutOfRangeException>(() =>
+            ((INumber<uint>)new RandomUInt(new MaxUint(), new MinUint())).NumberValue
+        );
+    }
+
+    [Fact]
     public void ProduceNormalStandardDeviationWithSharedProvider()
     {
         Random random = new Random();
 
-        IEnumerable<double> values = Enumerable.Range(0, 10000)
+        IEnumerable<double> values = Enumerable
+            .Range(0, 10000)
             .Select(_ => new RandomUInt(random))
             .Cast<INumber<uint>>()
             .Select(x => Convert.ToDouble(x.NumberValue))
@@ -28,7 +54,8 @@ public sealed record RandomUIntTests
     [Fact]
     public void ProduceNormalStandardDeviation()
     {
-        IEnumerable<int> values = Enumerable.Range(0, 10000)
+        IEnumerable<int> values = Enumerable
+            .Range(0, 10000)
             .Select(_ => new RandomUInt())
             .Cast<INumber<uint>>()
             .Select(x => (int)x.NumberValue)
