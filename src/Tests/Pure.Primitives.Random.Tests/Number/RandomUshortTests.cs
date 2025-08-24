@@ -1,4 +1,5 @@
 ﻿using Pure.Primitives.Abstractions.Number;
+using Pure.Primitives.Number;
 using Pure.Primitives.Random.Number;
 
 namespace Pure.Primitives.Random.Tests.Number;
@@ -8,18 +9,27 @@ using Random = System.Random;
 public sealed record RandomUShortTests
 {
     [Fact]
-    public void ProduceMaxValue()
+    public void RangeAffectGeneration()
     {
-        Random random = new Random();
+        INumber<ushort> max = new RandomUShort(new UShort(10), new MaxUshort());
+        INumber<ushort> min = new RandomUShort(new Zero<ushort>(), max);
 
-        IEnumerable<int> values = Enumerable
-            .Range(0, 1000000)
-            .Select(_ => new RandomUShort(random))
+        IEnumerable<ushort> values = Enumerable
+            .Range(0, 10000)
+            .Select(_ => new RandomUShort(min, max))
             .Cast<INumber<ushort>>()
-            .Select(x => (int)x.NumberValue)
-            .ToHashSet();
+            .Select(x => x.NumberValue)
+            .ToArray();
 
-        Assert.Contains(ushort.MaxValue, values);
+        Assert.True(values.All(x => min.NumberValue <= x && x < max.NumberValue));
+    }
+
+    [Fact]
+    public void ThrowsExceptionOnMinValueGreaterThanMaxValue()
+    {
+        Assert.Throws<ArgumentOutOfRangeException>(() =>
+            ((INumber<ushort>)new RandomUShort(new MaxUshort(), new MinUshort())).NumberValue
+        );
     }
 
     [Fact]
