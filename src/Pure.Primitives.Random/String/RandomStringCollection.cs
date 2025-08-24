@@ -4,21 +4,23 @@ using System.Collections;
 
 namespace Pure.Primitives.Random.String;
 
+using Random = System.Random;
+
 public sealed record RandomStringCollection : IEnumerable<IString>
 {
     private readonly INumber<ushort> _count;
 
     private readonly INumber<ushort> _length;
 
-    private readonly System.Random _random;
+    private readonly Random _random;
 
     public RandomStringCollection(INumber<ushort> count, INumber<ushort> length)
-        : this(count, length, new System.Random()) { }
+        : this(count, length, Random.Shared) { }
 
     public RandomStringCollection(
         INumber<ushort> count,
         INumber<ushort> length,
-        System.Random random
+        Random random
     )
     {
         _count = count;

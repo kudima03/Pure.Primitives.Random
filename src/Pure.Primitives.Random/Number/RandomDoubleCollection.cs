@@ -3,16 +3,18 @@ using System.Collections;
 
 namespace Pure.Primitives.Random.Number;
 
+using Random = System.Random;
+
 public sealed record RandomDoubleCollection : IEnumerable<INumber<double>>
 {
     private readonly INumber<ushort> _count;
 
-    private readonly System.Random _random;
+    private readonly Random _random;
 
     public RandomDoubleCollection(INumber<ushort> count)
-        : this(count, new System.Random()) { }
+        : this(count, Random.Shared) { }
 
-    public RandomDoubleCollection(INumber<ushort> count, System.Random random)
+    public RandomDoubleCollection(INumber<ushort> count, Random random)
     {
         _count = count;
         _random = random;

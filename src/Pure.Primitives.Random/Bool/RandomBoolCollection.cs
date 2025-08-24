@@ -4,16 +4,18 @@ using System.Collections;
 
 namespace Pure.Primitives.Random.Bool;
 
+using Random = System.Random;
+
 public sealed record RandomBoolCollection : IEnumerable<IBool>
 {
     private readonly INumber<ushort> _count;
 
-    private readonly System.Random _random;
+    private readonly Random _random;
 
     public RandomBoolCollection(INumber<ushort> count)
-        : this(count, new System.Random()) { }
+        : this(count, Random.Shared) { }
 
-    public RandomBoolCollection(INumber<ushort> count, System.Random random)
+    public RandomBoolCollection(INumber<ushort> count, Random random)
     {
         _count = count;
         _random = random;

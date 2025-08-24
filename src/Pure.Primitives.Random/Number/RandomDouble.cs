@@ -2,14 +2,16 @@
 
 namespace Pure.Primitives.Random.Number;
 
+using Random = System.Random;
+
 public sealed record RandomDouble : INumber<double>
 {
     private readonly double _numberValue;
 
     public RandomDouble()
-        : this(new System.Random()) { }
+        : this(Random.Shared) { }
 
-    public RandomDouble(System.Random random)
+    public RandomDouble(Random random)
         : this(random.NextDouble()) { }
 
     private RandomDouble(double numberValue)

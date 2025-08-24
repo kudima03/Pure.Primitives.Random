@@ -4,14 +4,16 @@ using Pure.Primitives.Number;
 
 namespace Pure.Primitives.Random.DayOfWeek;
 
+using Random = System.Random;
+
 public sealed record RandomDayOfWeek : IDayOfWeek
 {
     private readonly INumber<ushort> _dayNumberValue;
 
     public RandomDayOfWeek()
-        : this(new System.Random()) { }
+        : this(Random.Shared) { }
 
-    public RandomDayOfWeek(System.Random random)
+    public RandomDayOfWeek(Random random)
         : this(new UShort((ushort)random.Next(0, 8))) { }
 
     private RandomDayOfWeek(INumber<ushort> dayNumberValue)

@@ -2,14 +2,16 @@
 
 namespace Pure.Primitives.Random.Char;
 
+using Random = System.Random;
+
 public sealed record RandomChar : IChar
 {
     private readonly char _charValue;
 
     public RandomChar()
-        : this(new System.Random()) { }
+        : this(Random.Shared) { }
 
-    public RandomChar(System.Random random)
+    public RandomChar(Random random)
         : this(Convert.ToChar(random.Next(char.MinValue, char.MaxValue))) { }
 
     private RandomChar(char charValue)

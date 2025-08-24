@@ -6,15 +6,16 @@ using System.Collections;
 namespace Pure.Primitives.Random.String;
 
 using Char = Primitives.Char.Char;
+using Random = System.Random;
 
 public sealed record RandomString : IString
 {
     private readonly string _textValue;
 
     public RandomString(INumber<ushort> length)
-        : this(length, new System.Random()) { }
+        : this(length, Random.Shared) { }
 
-    public RandomString(INumber<ushort> length, System.Random random)
+    public RandomString(INumber<ushort> length, Random random)
         : this(
             string.Join(
                 string.Empty,
