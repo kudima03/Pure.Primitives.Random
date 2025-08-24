@@ -6,16 +6,23 @@ namespace Pure.Primitives.Random.Date;
 
 public sealed record RandomDate : IDate
 {
-    public RandomDate() : this(new System.Random()) { }
+    public RandomDate()
+        : this(new System.Random()) { }
 
-    public RandomDate(System.Random random) :
-        this(DateOnly.MinValue.AddDays(random.Next((System.DateTime.MaxValue - System.DateTime.MinValue).Days)))
+    public RandomDate(System.Random random)
+        : this(
+            DateOnly.MinValue.AddDays(
+                random.Next((System.DateTime.MaxValue - System.DateTime.MinValue).Days)
+            )
+        )
     { }
 
-    private RandomDate(DateOnly date) :
-        this(new UShort((ushort)date.Day),
+    private RandomDate(DateOnly date)
+        : this(
+            new UShort((ushort)date.Day),
             new UShort((ushort)date.Month),
-            new UShort((ushort)date.Year))
+            new UShort((ushort)date.Year)
+        )
     { }
 
     private RandomDate(INumber<ushort> day, INumber<ushort> month, INumber<ushort> year)

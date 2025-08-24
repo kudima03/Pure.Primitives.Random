@@ -10,7 +10,8 @@ public sealed record RandomDateTimeCollection : IEnumerable<IDateTime>
 
     private readonly System.Random _random;
 
-    public RandomDateTimeCollection(INumber<ushort> count) : this(count, new System.Random()) { }
+    public RandomDateTimeCollection(INumber<ushort> count)
+        : this(count, new System.Random()) { }
 
     public RandomDateTimeCollection(INumber<ushort> count, System.Random random)
     {
@@ -20,7 +21,10 @@ public sealed record RandomDateTimeCollection : IEnumerable<IDateTime>
 
     public IEnumerator<IDateTime> GetEnumerator()
     {
-        return Enumerable.Range(0, _count.NumberValue).Select(_ => new RandomDateTime(_random)).GetEnumerator();
+        return Enumerable
+            .Range(0, _count.NumberValue)
+            .Select(_ => new RandomDateTime(_random))
+            .GetEnumerator();
     }
 
     public override int GetHashCode()

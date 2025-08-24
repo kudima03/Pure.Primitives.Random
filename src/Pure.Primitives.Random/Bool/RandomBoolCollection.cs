@@ -10,7 +10,8 @@ public sealed record RandomBoolCollection : IEnumerable<IBool>
 
     private readonly System.Random _random;
 
-    public RandomBoolCollection(INumber<ushort> count) : this(count, new System.Random()) { }
+    public RandomBoolCollection(INumber<ushort> count)
+        : this(count, new System.Random()) { }
 
     public RandomBoolCollection(INumber<ushort> count, System.Random random)
     {
@@ -20,7 +21,10 @@ public sealed record RandomBoolCollection : IEnumerable<IBool>
 
     public IEnumerator<IBool> GetEnumerator()
     {
-        return Enumerable.Range(0, _count.NumberValue).Select(_ => new RandomBool(_random)).GetEnumerator();
+        return Enumerable
+            .Range(0, _count.NumberValue)
+            .Select(_ => new RandomBool(_random))
+            .GetEnumerator();
     }
 
     public override int GetHashCode()

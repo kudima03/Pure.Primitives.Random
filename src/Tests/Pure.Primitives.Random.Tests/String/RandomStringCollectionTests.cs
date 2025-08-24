@@ -33,12 +33,16 @@ public sealed record RandomStringCollectionTests
     [Fact]
     public void ThrowsExceptionOnGetHashCode()
     {
-        Assert.Throws<NotSupportedException>(() => new RandomStringCollection(new MinUshort(), new MinUshort()).GetHashCode());
+        Assert.Throws<NotSupportedException>(() =>
+            new RandomStringCollection(new MinUshort(), new MinUshort()).GetHashCode()
+        );
     }
 
     [Fact]
     public void ThrowsExceptionOnToString()
     {
-        Assert.Throws<NotSupportedException>(() => new RandomStringCollection(new MinUshort(), new MinUshort()).ToString());
+        Assert.Throws<NotSupportedException>(() =>
+            new RandomStringCollection(new MinUshort(), new MinUshort()).ToString()
+        );
     }
 }

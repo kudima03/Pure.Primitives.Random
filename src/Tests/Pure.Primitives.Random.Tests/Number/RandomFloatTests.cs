@@ -12,7 +12,8 @@ public sealed record RandomFloatTests
     {
         Random random = new Random();
 
-        IEnumerable<float> values = Enumerable.Range(0, 10000)
+        IEnumerable<float> values = Enumerable
+            .Range(0, 10000)
             .Select(_ => new RandomFloat(random))
             .Cast<INumber<float>>()
             .Select(x => x.NumberValue)
@@ -28,7 +29,8 @@ public sealed record RandomFloatTests
     [Fact]
     public void ProduceNormalStandardDeviation()
     {
-        IEnumerable<float> values = Enumerable.Range(0, 10000)
+        IEnumerable<float> values = Enumerable
+            .Range(0, 10000)
             .Select(_ => new RandomFloat())
             .Cast<INumber<float>>()
             .Select(x => x.NumberValue)

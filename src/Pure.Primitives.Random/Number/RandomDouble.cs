@@ -6,9 +6,11 @@ public sealed record RandomDouble : INumber<double>
 {
     private readonly double _numberValue;
 
-    public RandomDouble() : this(new System.Random()) { }
+    public RandomDouble()
+        : this(new System.Random()) { }
 
-    public RandomDouble(System.Random random) : this(random.NextDouble()) { }
+    public RandomDouble(System.Random random)
+        : this(random.NextDouble()) { }
 
     private RandomDouble(double numberValue)
     {

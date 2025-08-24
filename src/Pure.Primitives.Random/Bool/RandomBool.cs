@@ -6,9 +6,11 @@ public sealed record RandomBool : IBool
 {
     private readonly bool _boolValue;
 
-    public RandomBool() : this(new System.Random()) { }
+    public RandomBool()
+        : this(new System.Random()) { }
 
-    public RandomBool(System.Random random) : this(Convert.ToBoolean(random.Next(0, 2))) { }
+    public RandomBool(System.Random random)
+        : this(Convert.ToBoolean(random.Next(0, 2))) { }
 
     private RandomBool(bool boolValue)
     {

@@ -12,7 +12,8 @@ public sealed record RandomDoubleTests
     {
         Random random = new Random();
 
-        IEnumerable<double> values = Enumerable.Range(0, 10000)
+        IEnumerable<double> values = Enumerable
+            .Range(0, 10000)
             .Select(_ => new RandomDouble(random))
             .Cast<INumber<double>>()
             .Select(x => x.NumberValue)
@@ -28,7 +29,8 @@ public sealed record RandomDoubleTests
     [Fact]
     public void ProduceNormalStandardDeviation()
     {
-        IEnumerable<double> values = Enumerable.Range(0, 10000)
+        IEnumerable<double> values = Enumerable
+            .Range(0, 10000)
             .Select(_ => new RandomDouble())
             .Cast<INumber<double>>()
             .Select(x => x.NumberValue)

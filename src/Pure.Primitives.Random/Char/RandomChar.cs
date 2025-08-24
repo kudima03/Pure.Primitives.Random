@@ -6,11 +6,11 @@ public sealed record RandomChar : IChar
 {
     private readonly char _charValue;
 
-    public RandomChar() : this(new System.Random()) { }
+    public RandomChar()
+        : this(new System.Random()) { }
 
-    public RandomChar(System.Random random) :
-        this(Convert.ToChar(random.Next(char.MinValue, char.MaxValue)))
-    { }
+    public RandomChar(System.Random random)
+        : this(Convert.ToChar(random.Next(char.MinValue, char.MaxValue))) { }
 
     private RandomChar(char charValue)
     {
