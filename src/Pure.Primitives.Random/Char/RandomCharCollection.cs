@@ -4,16 +4,18 @@ using System.Collections;
 
 namespace Pure.Primitives.Random.Char;
 
+using Random = System.Random;
+
 public sealed record RandomCharCollection : IEnumerable<IChar>
 {
     private readonly INumber<ushort> _count;
 
-    private readonly System.Random _random;
+    private readonly Random _random;
 
     public RandomCharCollection(INumber<ushort> count)
-        : this(count, new System.Random()) { }
+        : this(count, Random.Shared) { }
 
-    public RandomCharCollection(INumber<ushort> count, System.Random random)
+    public RandomCharCollection(INumber<ushort> count, Random random)
     {
         _count = count;
         _random = random;

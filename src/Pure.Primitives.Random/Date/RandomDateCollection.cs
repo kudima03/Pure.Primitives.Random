@@ -4,16 +4,18 @@ using System.Collections;
 
 namespace Pure.Primitives.Random.Date;
 
+using Random = System.Random;
+
 public sealed record RandomDateCollection : IEnumerable<IDate>
 {
     private readonly INumber<ushort> _count;
 
-    private readonly System.Random _random;
+    private readonly Random _random;
 
     public RandomDateCollection(INumber<ushort> count)
-        : this(count, new System.Random()) { }
+        : this(count, Random.Shared) { }
 
-    public RandomDateCollection(INumber<ushort> count, System.Random random)
+    public RandomDateCollection(INumber<ushort> count, Random random)
     {
         _count = count;
         _random = random;

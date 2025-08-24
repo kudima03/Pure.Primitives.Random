@@ -4,16 +4,18 @@ using System.Collections;
 
 namespace Pure.Primitives.Random.DayOfWeek;
 
+using Random = System.Random;
+
 public sealed record RandomDayOfWeekCollection : IEnumerable<IDayOfWeek>
 {
     private readonly INumber<ushort> _count;
 
-    private readonly System.Random _random;
+    private readonly Random _random;
 
     public RandomDayOfWeekCollection(INumber<ushort> count)
-        : this(count, new System.Random()) { }
+        : this(count, Random.Shared) { }
 
-    public RandomDayOfWeekCollection(INumber<ushort> count, System.Random random)
+    public RandomDayOfWeekCollection(INumber<ushort> count, Random random)
     {
         _count = count;
         _random = random;

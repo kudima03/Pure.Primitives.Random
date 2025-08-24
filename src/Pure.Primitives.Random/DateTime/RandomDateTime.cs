@@ -7,12 +7,14 @@ using Pure.Primitives.Random.Time;
 
 namespace Pure.Primitives.Random.DateTime;
 
+using Random = System.Random;
+
 public sealed record RandomDateTime : IDateTime
 {
     public RandomDateTime()
-        : this(new System.Random()) { }
+        : this(Random.Shared) { }
 
-    public RandomDateTime(System.Random random)
+    public RandomDateTime(Random random)
         : this(new RandomDate(random), new RandomTime(random)) { }
 
     private RandomDateTime(IDate date, ITime time)

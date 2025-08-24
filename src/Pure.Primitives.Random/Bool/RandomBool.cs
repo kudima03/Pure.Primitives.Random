@@ -2,14 +2,16 @@
 
 namespace Pure.Primitives.Random.Bool;
 
+using Random = System.Random;
+
 public sealed record RandomBool : IBool
 {
     private readonly bool _boolValue;
 
     public RandomBool()
-        : this(new System.Random()) { }
+        : this(Random.Shared) { }
 
-    public RandomBool(System.Random random)
+    public RandomBool(Random random)
         : this(Convert.ToBoolean(random.Next(0, 2))) { }
 
     private RandomBool(bool boolValue)

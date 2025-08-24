@@ -4,16 +4,18 @@ using System.Collections;
 
 namespace Pure.Primitives.Random.Time;
 
+using Random = System.Random;
+
 public sealed record RandomTimeCollection : IEnumerable<ITime>
 {
     private readonly INumber<ushort> _count;
 
-    private readonly System.Random _random;
+    private readonly Random _random;
 
     public RandomTimeCollection(INumber<ushort> count)
-        : this(count, new System.Random()) { }
+        : this(count, Random.Shared) { }
 
-    public RandomTimeCollection(INumber<ushort> count, System.Random random)
+    public RandomTimeCollection(INumber<ushort> count, Random random)
     {
         _count = count;
         _random = random;

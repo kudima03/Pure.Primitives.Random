@@ -2,14 +2,16 @@
 
 namespace Pure.Primitives.Random.Number;
 
+using Random = System.Random;
+
 public sealed record RandomFloat : INumber<float>
 {
     private readonly float _numberValue;
 
     public RandomFloat()
-        : this(new System.Random()) { }
+        : this(Random.Shared) { }
 
-    public RandomFloat(System.Random random)
+    public RandomFloat(Random random)
         : this(random.NextSingle()) { }
 
     private RandomFloat(float numberValue)

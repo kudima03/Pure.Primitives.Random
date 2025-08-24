@@ -4,12 +4,14 @@ using Pure.Primitives.Number;
 
 namespace Pure.Primitives.Random.Date;
 
+using Random = System.Random;
+
 public sealed record RandomDate : IDate
 {
     public RandomDate()
-        : this(new System.Random()) { }
+        : this(Random.Shared) { }
 
-    public RandomDate(System.Random random)
+    public RandomDate(Random random)
         : this(
             DateOnly.MinValue.AddDays(
                 random.Next((System.DateTime.MaxValue - System.DateTime.MinValue).Days)
