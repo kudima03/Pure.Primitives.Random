@@ -6,20 +6,20 @@ using Random = System.Random;
 
 public sealed record RandomChar : IChar
 {
-    private readonly char _charValue;
+    private readonly Lazy<char> _lazyChar;
 
     public RandomChar()
         : this(Random.Shared) { }
 
     public RandomChar(Random random)
-        : this(Convert.ToChar(random.Next(char.MinValue, char.MaxValue))) { }
+        : this(new Lazy<char>(() => Convert.ToChar(random.Next(char.MinValue, char.MaxValue)))) { }
 
-    private RandomChar(char charValue)
+    private RandomChar(Lazy<char> lazyChar)
     {
-        _charValue = charValue;
+        _lazyChar = lazyChar;
     }
 
-    char IChar.CharValue => _charValue;
+    char IChar.CharValue => _lazyChar.Value;
 
     public override int GetHashCode()
     {

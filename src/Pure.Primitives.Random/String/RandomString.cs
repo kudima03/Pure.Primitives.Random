@@ -10,33 +10,35 @@ using Random = System.Random;
 
 public sealed record RandomString : IString
 {
-    private readonly string _textValue;
+    private readonly Lazy<string> _lazyValue;
 
     public RandomString(INumber<ushort> length)
         : this(length, Random.Shared) { }
 
     public RandomString(INumber<ushort> length, Random random)
         : this(
-            string.Join(
-                string.Empty,
-                Enumerable
-                    .Range(0, length.NumberValue)
-                    .Select(_ => random.Next(char.MinValue, char.MaxValue))
-                    .Select(Convert.ToChar)
+            new Lazy<string>(() =>
+                string.Join(
+                    string.Empty,
+                    Enumerable
+                        .Range(0, length.NumberValue)
+                        .Select(_ => random.Next(char.MinValue, char.MaxValue))
+                        .Select(Convert.ToChar)
+                )
             )
         )
     { }
 
-    private RandomString(string textValue)
+    private RandomString(Lazy<string> lazyValue)
     {
-        _textValue = textValue;
+        _lazyValue = lazyValue;
     }
 
-    string IString.TextValue => _textValue;
+    string IString.TextValue => _lazyValue.Value;
 
     public IEnumerator<IChar> GetEnumerator()
     {
-        return _textValue.Select(x => new Char(x)).GetEnumerator();
+        return _lazyValue.Value.Select(x => new Char(x)).GetEnumerator();
     }
 
     public override int GetHashCode()

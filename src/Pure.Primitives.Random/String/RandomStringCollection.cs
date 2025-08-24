@@ -17,11 +17,7 @@ public sealed record RandomStringCollection : IEnumerable<IString>
     public RandomStringCollection(INumber<ushort> count, INumber<ushort> length)
         : this(count, length, Random.Shared) { }
 
-    public RandomStringCollection(
-        INumber<ushort> count,
-        INumber<ushort> length,
-        Random random
-    )
+    public RandomStringCollection(INumber<ushort> count, INumber<ushort> length, Random random)
     {
         _count = count;
         _random = random;

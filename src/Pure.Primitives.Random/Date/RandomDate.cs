@@ -8,37 +8,31 @@ using Random = System.Random;
 
 public sealed record RandomDate : IDate
 {
+    private readonly Lazy<DateOnly> _lazyDateOnly;
+
     public RandomDate()
         : this(Random.Shared) { }
 
     public RandomDate(Random random)
         : this(
-            DateOnly.MinValue.AddDays(
-                random.Next((System.DateTime.MaxValue - System.DateTime.MinValue).Days)
+            new Lazy<DateOnly>(() =>
+                DateOnly.MinValue.AddDays(
+                    random.Next((System.DateTime.MaxValue - System.DateTime.MinValue).Days)
+                )
             )
         )
     { }
 
-    private RandomDate(DateOnly date)
-        : this(
-            new UShort((ushort)date.Day),
-            new UShort((ushort)date.Month),
-            new UShort((ushort)date.Year)
-        )
-    { }
-
-    private RandomDate(INumber<ushort> day, INumber<ushort> month, INumber<ushort> year)
+    private RandomDate(Lazy<DateOnly> lazyDateOnly)
     {
-        Day = day;
-        Month = month;
-        Year = year;
+        _lazyDateOnly = lazyDateOnly;
     }
 
-    public INumber<ushort> Day { get; }
+    public INumber<ushort> Day => new UShort((ushort)_lazyDateOnly.Value.Day);
 
-    public INumber<ushort> Month { get; }
+    public INumber<ushort> Month => new UShort((ushort)_lazyDateOnly.Value.Month);
 
-    public INumber<ushort> Year { get; }
+    public INumber<ushort> Year => new UShort((ushort)_lazyDateOnly.Value.Year);
 
     public override int GetHashCode()
     {

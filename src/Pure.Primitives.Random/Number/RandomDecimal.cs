@@ -6,20 +6,20 @@ using Random = System.Random;
 
 public sealed record RandomDecimal : INumber<decimal>
 {
-    private readonly decimal _numberValue;
+    private readonly Lazy<decimal> _lazyValue;
 
     public RandomDecimal()
         : this(Random.Shared) { }
 
     public RandomDecimal(Random random)
-        : this(Convert.ToDecimal(random.NextDouble())) { }
+        : this(new Lazy<decimal>(() => Convert.ToDecimal(random.NextDouble()))) { }
 
-    private RandomDecimal(decimal numberValue)
+    private RandomDecimal(Lazy<decimal> lazyValue)
     {
-        _numberValue = numberValue;
+        _lazyValue = lazyValue;
     }
 
-    decimal INumber<decimal>.NumberValue => _numberValue;
+    decimal INumber<decimal>.NumberValue => _lazyValue.Value;
 
     public override int GetHashCode()
     {
