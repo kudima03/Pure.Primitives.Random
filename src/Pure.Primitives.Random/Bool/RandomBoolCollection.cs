@@ -1,5 +1,6 @@
 ﻿using Pure.Primitives.Abstractions.Bool;
 using Pure.Primitives.Abstractions.Number;
+using Pure.Primitives.Random.Number;
 using System.Collections;
 
 namespace Pure.Primitives.Random.Bool;
@@ -11,6 +12,12 @@ public sealed record RandomBoolCollection : IEnumerable<IBool>
     private readonly INumber<ushort> _count;
 
     private readonly Random _random;
+
+    public RandomBoolCollection()
+        : this(Random.Shared) { }
+
+    public RandomBoolCollection(Random random)
+        : this(new RandomUShort(random), random) { }
 
     public RandomBoolCollection(INumber<ushort> count)
         : this(count, Random.Shared) { }
