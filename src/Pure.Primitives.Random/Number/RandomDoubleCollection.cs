@@ -11,6 +11,12 @@ public sealed record RandomDoubleCollection : IEnumerable<INumber<double>>
 
     private readonly Random _random;
 
+    public RandomDoubleCollection()
+        : this(Random.Shared) { }
+
+    public RandomDoubleCollection(Random random)
+        : this(new RandomUShort(random), random) { }
+
     public RandomDoubleCollection(INumber<ushort> count)
         : this(count, Random.Shared) { }
 
