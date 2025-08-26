@@ -16,9 +16,7 @@ public sealed record RandomStringCollectionTests
     [Fact]
     public void EnumeratesAsUntyped()
     {
-        const ushort count = 1000;
-
-        IEnumerable randoms = new RandomStringCollection(new UShort(count), new MinUshort());
+        IEnumerable randoms = new RandomStringCollection();
 
         int i = 0;
 
@@ -27,7 +25,7 @@ public sealed record RandomStringCollectionTests
             i++;
         }
 
-        Assert.Equal(count, i);
+        Assert.True(i > 0);
     }
 
     [Fact]

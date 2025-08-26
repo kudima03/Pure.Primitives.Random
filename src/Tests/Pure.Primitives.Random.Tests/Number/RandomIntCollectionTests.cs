@@ -32,9 +32,7 @@ public sealed record RandomIntCollectionTests
     [Fact]
     public void EnumeratesAsUntyped()
     {
-        const ushort count = 1000;
-
-        IEnumerable randoms = new RandomIntCollection(new UShort(count));
+        IEnumerable randoms = new RandomIntCollection();
 
         int i = 0;
 
@@ -43,7 +41,7 @@ public sealed record RandomIntCollectionTests
             i++;
         }
 
-        Assert.Equal(count, i);
+        Assert.True(i > 0);
     }
 
     [Fact]

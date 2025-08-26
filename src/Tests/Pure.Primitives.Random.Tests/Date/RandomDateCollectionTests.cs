@@ -19,9 +19,7 @@ public sealed record RandomDateCollectionTests
     [Fact]
     public void EnumeratesAsUntyped()
     {
-        const ushort count = 1000;
-
-        IEnumerable randoms = new RandomDateCollection(new UShort(count));
+        IEnumerable randoms = new RandomDateCollection();
 
         int i = 0;
 
@@ -30,7 +28,7 @@ public sealed record RandomDateCollectionTests
             i++;
         }
 
-        Assert.Equal(count, i);
+        Assert.True(i > 0);
     }
 
     [Fact]

@@ -1,6 +1,7 @@
 ﻿using Pure.Primitives.Abstractions.Char;
 using Pure.Primitives.Abstractions.Number;
 using Pure.Primitives.Abstractions.String;
+using Pure.Primitives.Random.Number;
 using System.Collections;
 
 namespace Pure.Primitives.Random.String;
@@ -11,6 +12,12 @@ using Random = System.Random;
 public sealed record RandomString : IString
 {
     private readonly Lazy<string> _lazyValue;
+
+    public RandomString()
+        : this(Random.Shared) { }
+
+    public RandomString(Random random)
+        : this(new RandomUShort(random)) { }
 
     public RandomString(INumber<ushort> length)
         : this(length, Random.Shared) { }

@@ -16,6 +16,12 @@ public sealed record RandomUIntCollection : IEnumerable<INumber<uint>>
 
     private readonly Random _random;
 
+    public RandomUIntCollection()
+        : this(Random.Shared) { }
+
+    public RandomUIntCollection(Random random)
+        : this(new RandomUShort(random), random) { }
+
     public RandomUIntCollection(INumber<ushort> count)
         : this(count, Random.Shared) { }
 

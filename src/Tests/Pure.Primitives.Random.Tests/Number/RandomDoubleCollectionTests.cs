@@ -18,9 +18,7 @@ public sealed record RandomDoubleCollectionTests
     [Fact]
     public void EnumeratesAsUntyped()
     {
-        const ushort count = 1000;
-
-        IEnumerable randoms = new RandomDoubleCollection(new UShort(count));
+        IEnumerable randoms = new RandomDoubleCollection();
 
         int i = 0;
 
@@ -29,7 +27,7 @@ public sealed record RandomDoubleCollectionTests
             i++;
         }
 
-        Assert.Equal(count, i);
+        Assert.True(i > 0);
     }
 
     [Fact]

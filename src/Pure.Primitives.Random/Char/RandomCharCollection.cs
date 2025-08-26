@@ -1,5 +1,6 @@
 ﻿using Pure.Primitives.Abstractions.Char;
 using Pure.Primitives.Abstractions.Number;
+using Pure.Primitives.Random.Number;
 using System.Collections;
 
 namespace Pure.Primitives.Random.Char;
@@ -11,6 +12,12 @@ public sealed record RandomCharCollection : IEnumerable<IChar>
     private readonly INumber<ushort> _count;
 
     private readonly Random _random;
+
+    public RandomCharCollection()
+        : this(Random.Shared) { }
+
+    public RandomCharCollection(Random random)
+        : this(new RandomUShort(random), random) { }
 
     public RandomCharCollection(INumber<ushort> count)
         : this(count, Random.Shared) { }

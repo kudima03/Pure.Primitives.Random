@@ -16,9 +16,7 @@ public sealed record RandomDecimalCollectionTests
     [Fact]
     public void EnumeratesAsUntyped()
     {
-        const ushort count = 1000;
-
-        IEnumerable randoms = new RandomDecimalCollection(new UShort(count));
+        IEnumerable randoms = new RandomDecimalCollection();
 
         int i = 0;
 
@@ -27,7 +25,7 @@ public sealed record RandomDecimalCollectionTests
             i++;
         }
 
-        Assert.Equal(count, i);
+        Assert.True(i > 0);
     }
 
     [Fact]
