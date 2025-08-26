@@ -11,6 +11,12 @@ public sealed record RandomDecimalCollection : IEnumerable<INumber<decimal>>
 
     private readonly Random _random;
 
+    public RandomDecimalCollection()
+        : this(Random.Shared) { }
+
+    public RandomDecimalCollection(Random random)
+        : this(new RandomUShort(random), random) { }
+
     public RandomDecimalCollection(INumber<ushort> count)
         : this(count, Random.Shared) { }
 
