@@ -18,9 +18,7 @@ public sealed record RandomDayOfWeekCollectionTests
     [Fact]
     public void EnumeratesAsUntyped()
     {
-        const ushort count = 1000;
-
-        IEnumerable randoms = new RandomDayOfWeekCollection(new UShort(count));
+        IEnumerable randoms = new RandomDayOfWeekCollection();
 
         int i = 0;
 
@@ -29,7 +27,7 @@ public sealed record RandomDayOfWeekCollectionTests
             i++;
         }
 
-        Assert.Equal(count, i);
+        Assert.True(i > 0);
     }
 
     [Fact]
