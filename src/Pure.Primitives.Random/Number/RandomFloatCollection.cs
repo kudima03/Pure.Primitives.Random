@@ -11,6 +11,12 @@ public sealed record RandomFloatCollection : IEnumerable<INumber<float>>
 
     private readonly Random _random;
 
+    public RandomFloatCollection()
+        : this(Random.Shared) { }
+
+    public RandomFloatCollection(Random random)
+        : this(new RandomUShort(random), random) { }
+
     public RandomFloatCollection(INumber<ushort> count)
         : this(count, Random.Shared) { }
 
