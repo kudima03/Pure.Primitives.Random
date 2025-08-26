@@ -1,5 +1,6 @@
 ﻿using Pure.Primitives.Abstractions.Number;
 using Pure.Primitives.Abstractions.Time;
+using Pure.Primitives.Random.Number;
 using System.Collections;
 
 namespace Pure.Primitives.Random.Time;
@@ -11,6 +12,12 @@ public sealed record RandomTimeCollection : IEnumerable<ITime>
     private readonly INumber<ushort> _count;
 
     private readonly Random _random;
+
+    public RandomTimeCollection()
+        : this(Random.Shared) { }
+
+    public RandomTimeCollection(Random random)
+        : this(new RandomUShort(random), random) { }
 
     public RandomTimeCollection(INumber<ushort> count)
         : this(count, Random.Shared) { }
