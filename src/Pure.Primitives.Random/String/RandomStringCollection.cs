@@ -1,5 +1,6 @@
 ﻿using Pure.Primitives.Abstractions.Number;
 using Pure.Primitives.Abstractions.String;
+using Pure.Primitives.Random.Number;
 using System.Collections;
 
 namespace Pure.Primitives.Random.String;
@@ -13,6 +14,12 @@ public sealed record RandomStringCollection : IEnumerable<IString>
     private readonly INumber<ushort> _length;
 
     private readonly Random _random;
+
+    public RandomStringCollection()
+        : this(Random.Shared) { }
+
+    public RandomStringCollection(Random random)
+        : this(new RandomUShort(random), new RandomUShort(random), random) { }
 
     public RandomStringCollection(INumber<ushort> count, INumber<ushort> length)
         : this(count, length, Random.Shared) { }
