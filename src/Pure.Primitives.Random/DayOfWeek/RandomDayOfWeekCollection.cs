@@ -1,5 +1,6 @@
 ﻿using Pure.Primitives.Abstractions.DayOfWeek;
 using Pure.Primitives.Abstractions.Number;
+using Pure.Primitives.Random.Number;
 using System.Collections;
 
 namespace Pure.Primitives.Random.DayOfWeek;
@@ -11,6 +12,12 @@ public sealed record RandomDayOfWeekCollection : IEnumerable<IDayOfWeek>
     private readonly INumber<ushort> _count;
 
     private readonly Random _random;
+
+    public RandomDayOfWeekCollection()
+        : this(Random.Shared) { }
+
+    public RandomDayOfWeekCollection(Random random)
+        : this(new RandomUShort(random), random) { }
 
     public RandomDayOfWeekCollection(INumber<ushort> count)
         : this(count, Random.Shared) { }
