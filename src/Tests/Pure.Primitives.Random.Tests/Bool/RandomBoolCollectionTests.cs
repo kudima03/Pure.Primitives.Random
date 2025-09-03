@@ -1,6 +1,6 @@
-﻿using Pure.Primitives.Number;
-using Pure.Primitives.Random.Bool;
 using System.Collections;
+using Pure.Primitives.Number;
+using Pure.Primitives.Random.Bool;
 
 namespace Pure.Primitives.Random.Tests.Bool;
 
@@ -35,12 +35,15 @@ public sealed record RandomBoolCollectionTests
     {
         Random random = new Random();
 
-        IEnumerable<int> values = new RandomBoolCollection(new UShort(1000), random)
-            .Select(x => Convert.ToInt32(x.BoolValue))
-            .ToArray();
+        IEnumerable<int> values =
+        [
+            .. new RandomBoolCollection(new UShort(1000), random).Select(x =>
+                Convert.ToInt32(x.BoolValue)
+            ),
+        ];
 
         double mean = values.Average();
-        double variance = values.Select(v => Math.Pow(v - mean, 2)).Average();
+        double variance = values.Average(v => Math.Pow(v - mean, 2));
         double stdDev = Math.Sqrt(variance);
 
         Assert.InRange(stdDev, 0.48, 0.5);
@@ -49,12 +52,15 @@ public sealed record RandomBoolCollectionTests
     [Fact]
     public void ProduceNormalDistribution()
     {
-        IEnumerable<int> values = new RandomBoolCollection(new UShort(1000))
-            .Select(x => Convert.ToInt32(x.BoolValue))
-            .ToArray();
+        IEnumerable<int> values =
+        [
+            .. new RandomBoolCollection(new UShort(1000)).Select(x =>
+                Convert.ToInt32(x.BoolValue)
+            ),
+        ];
 
         double mean = values.Average();
-        double variance = values.Select(v => Math.Pow(v - mean, 2)).Average();
+        double variance = values.Average(v => Math.Pow(v - mean, 2));
         double stdDev = Math.Sqrt(variance);
 
         Assert.InRange(stdDev, 0.48, 0.5);
@@ -63,7 +69,7 @@ public sealed record RandomBoolCollectionTests
     [Fact]
     public void ThrowsExceptionOnGetHashCode()
     {
-        Assert.Throws<NotSupportedException>(() =>
+        _ = Assert.Throws<NotSupportedException>(() =>
             new RandomBoolCollection(new MinUshort()).GetHashCode()
         );
     }
@@ -71,7 +77,7 @@ public sealed record RandomBoolCollectionTests
     [Fact]
     public void ThrowsExceptionOnToString()
     {
-        Assert.Throws<NotSupportedException>(() =>
+        _ = Assert.Throws<NotSupportedException>(() =>
             new RandomBoolCollection(new MinUshort()).ToString()
         );
     }

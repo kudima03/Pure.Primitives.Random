@@ -1,8 +1,8 @@
-﻿using Pure.Primitives.Abstractions.Char;
+using System.Collections;
+using Pure.Primitives.Abstractions.Char;
 using Pure.Primitives.Abstractions.Number;
 using Pure.Primitives.Abstractions.String;
 using Pure.Primitives.Random.Number;
-using System.Collections;
 
 namespace Pure.Primitives.Random.String;
 

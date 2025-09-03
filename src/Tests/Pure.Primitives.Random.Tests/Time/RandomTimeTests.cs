@@ -1,4 +1,4 @@
-﻿using Pure.Primitives.Abstractions.Time;
+using Pure.Primitives.Abstractions.Time;
 using Pure.Primitives.Random.Time;
 
 namespace Pure.Primitives.Random.Tests.Time;
@@ -12,7 +12,9 @@ public sealed record RandomTimeTests
     {
         Random random = new Random();
 
-        IEnumerable<ITime> values = Enumerable.Range(0, 10000).Select(_ => new RandomTime(random));
+        IEnumerable<ITime> values = Enumerable
+            .Range(0, 10000)
+            .Select(_ => new RandomTime(random));
 
         Assert.All(
             values,
@@ -39,15 +41,17 @@ public sealed record RandomTimeTests
     {
         Random random = new Random();
 
-        IEnumerable<int> values = Enumerable
-            .Range(0, 10000)
-            .Select(_ => new RandomTime(random))
-            .Cast<ITime>()
-            .Select(x => (int)x.Hour.NumberValue)
-            .ToArray();
+        IEnumerable<int> values =
+        [
+            .. Enumerable
+                .Range(0, 10000)
+                .Select(_ => new RandomTime(random))
+                .Cast<ITime>()
+                .Select(x => (int)x.Hour.NumberValue),
+        ];
 
         double mean = values.Average();
-        double variance = values.Select(v => Math.Pow(v - mean, 2)).Average();
+        double variance = values.Average(v => Math.Pow(v - mean, 2));
         double stdDev = Math.Sqrt(variance);
 
         Assert.InRange(stdDev, 6.8, 7);
@@ -58,15 +62,17 @@ public sealed record RandomTimeTests
     {
         Random random = new Random();
 
-        IEnumerable<int> values = Enumerable
-            .Range(0, 10000)
-            .Select(_ => new RandomTime(random))
-            .Cast<ITime>()
-            .Select(x => (int)x.Minute.NumberValue)
-            .ToArray();
+        IEnumerable<int> values =
+        [
+            .. Enumerable
+                .Range(0, 10000)
+                .Select(_ => new RandomTime(random))
+                .Cast<ITime>()
+                .Select(x => (int)x.Minute.NumberValue),
+        ];
 
         double mean = values.Average();
-        double variance = values.Select(v => Math.Pow(v - mean, 2)).Average();
+        double variance = values.Average(v => Math.Pow(v - mean, 2));
         double stdDev = Math.Sqrt(variance);
 
         Assert.InRange(stdDev, 17, 17.5);
@@ -77,15 +83,17 @@ public sealed record RandomTimeTests
     {
         Random random = new Random();
 
-        IEnumerable<int> values = Enumerable
-            .Range(0, 10000)
-            .Select(_ => new RandomTime(random))
-            .Cast<ITime>()
-            .Select(x => (int)x.Second.NumberValue)
-            .ToArray();
+        IEnumerable<int> values =
+        [
+            .. Enumerable
+                .Range(0, 10000)
+                .Select(_ => new RandomTime(random))
+                .Cast<ITime>()
+                .Select(x => (int)x.Second.NumberValue),
+        ];
 
         double mean = values.Average();
-        double variance = values.Select(v => Math.Pow(v - mean, 2)).Average();
+        double variance = values.Average(v => Math.Pow(v - mean, 2));
         double stdDev = Math.Sqrt(variance);
 
         Assert.InRange(stdDev, 17, 17.5);
@@ -96,15 +104,17 @@ public sealed record RandomTimeTests
     {
         Random random = new Random();
 
-        IEnumerable<int> values = Enumerable
-            .Range(0, 10000)
-            .Select(_ => new RandomTime(random))
-            .Cast<ITime>()
-            .Select(x => (int)x.Millisecond.NumberValue)
-            .ToArray();
+        IEnumerable<int> values =
+        [
+            .. Enumerable
+                .Range(0, 10000)
+                .Select(_ => new RandomTime(random))
+                .Cast<ITime>()
+                .Select(x => (int)x.Millisecond.NumberValue),
+        ];
 
         double mean = values.Average();
-        double variance = values.Select(v => Math.Pow(v - mean, 2)).Average();
+        double variance = values.Average(v => Math.Pow(v - mean, 2));
         double stdDev = Math.Sqrt(variance);
 
         Assert.InRange(stdDev, 280, 300);
@@ -115,15 +125,17 @@ public sealed record RandomTimeTests
     {
         Random random = new Random();
 
-        IEnumerable<int> values = Enumerable
-            .Range(0, 10000)
-            .Select(_ => new RandomTime(random))
-            .Cast<ITime>()
-            .Select(x => (int)x.Microsecond.NumberValue)
-            .ToArray();
+        IEnumerable<int> values =
+        [
+            .. Enumerable
+                .Range(0, 10000)
+                .Select(_ => new RandomTime(random))
+                .Cast<ITime>()
+                .Select(x => (int)x.Microsecond.NumberValue),
+        ];
 
         double mean = values.Average();
-        double variance = values.Select(v => Math.Pow(v - mean, 2)).Average();
+        double variance = values.Average(v => Math.Pow(v - mean, 2));
         double stdDev = Math.Sqrt(variance);
 
         Assert.InRange(stdDev, 280, 300);
@@ -134,15 +146,17 @@ public sealed record RandomTimeTests
     {
         Random random = new Random();
 
-        IEnumerable<int> values = Enumerable
-            .Range(0, 10000)
-            .Select(_ => new RandomTime(random))
-            .Cast<ITime>()
-            .Select(x => (int)x.Nanosecond.NumberValue)
-            .ToArray();
+        IEnumerable<int> values =
+        [
+            .. Enumerable
+                .Range(0, 10000)
+                .Select(_ => new RandomTime(random))
+                .Cast<ITime>()
+                .Select(x => (int)x.Nanosecond.NumberValue),
+        ];
 
         double mean = values.Average();
-        double variance = values.Select(v => Math.Pow(v - mean, 2)).Average();
+        double variance = values.Average(v => Math.Pow(v - mean, 2));
         double stdDev = Math.Sqrt(variance);
 
         Assert.InRange(stdDev, 280, 300);
@@ -151,12 +165,12 @@ public sealed record RandomTimeTests
     [Fact]
     public void ThrowsExceptionOnGetHashCode()
     {
-        Assert.Throws<NotSupportedException>(() => new RandomTime().GetHashCode());
+        _ = Assert.Throws<NotSupportedException>(() => new RandomTime().GetHashCode());
     }
 
     [Fact]
     public void ThrowsExceptionOnToString()
     {
-        Assert.Throws<NotSupportedException>(() => new RandomTime().ToString());
+        _ = Assert.Throws<NotSupportedException>(() => new RandomTime().ToString());
     }
 }

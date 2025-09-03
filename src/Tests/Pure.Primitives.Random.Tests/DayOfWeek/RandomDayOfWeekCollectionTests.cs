@@ -1,6 +1,6 @@
-﻿using Pure.Primitives.Number;
-using Pure.Primitives.Random.DayOfWeek;
 using System.Collections;
+using Pure.Primitives.Number;
+using Pure.Primitives.Random.DayOfWeek;
 
 namespace Pure.Primitives.Random.Tests.DayOfWeek;
 
@@ -35,12 +35,15 @@ public sealed record RandomDayOfWeekCollectionTests
     {
         Random random = new Random();
 
-        IEnumerable<int> values = new RandomDayOfWeekCollection(new UShort(10000), random)
-            .Select(x => (int)x.DayNumberValue.NumberValue)
-            .ToArray();
+        IEnumerable<int> values =
+        [
+            .. new RandomDayOfWeekCollection(new UShort(10000), random).Select(x =>
+                (int)x.DayNumberValue.NumberValue
+            ),
+        ];
 
         double mean = values.Average();
-        double variance = values.Select(v => Math.Pow(v - mean, 2)).Average();
+        double variance = values.Average(v => Math.Pow(v - mean, 2));
         double stdDev = Math.Sqrt(variance);
 
         Assert.InRange(stdDev, 2.1, 2.4);
@@ -49,12 +52,15 @@ public sealed record RandomDayOfWeekCollectionTests
     [Fact]
     public void ProduceNormalStandardDeviation()
     {
-        IEnumerable<int> values = new RandomDayOfWeekCollection(new UShort(10000))
-            .Select(x => (int)x.DayNumberValue.NumberValue)
-            .ToArray();
+        IEnumerable<int> values =
+        [
+            .. new RandomDayOfWeekCollection(new UShort(10000)).Select(x =>
+                (int)x.DayNumberValue.NumberValue
+            ),
+        ];
 
         double mean = values.Average();
-        double variance = values.Select(v => Math.Pow(v - mean, 2)).Average();
+        double variance = values.Average(v => Math.Pow(v - mean, 2));
         double stdDev = Math.Sqrt(variance);
 
         Assert.InRange(stdDev, 2.1, 2.4);
@@ -63,7 +69,7 @@ public sealed record RandomDayOfWeekCollectionTests
     [Fact]
     public void ThrowsExceptionOnGetHashCode()
     {
-        Assert.Throws<NotSupportedException>(() =>
+        _ = Assert.Throws<NotSupportedException>(() =>
             new RandomDayOfWeekCollection(new MinUshort()).GetHashCode()
         );
     }
@@ -71,7 +77,7 @@ public sealed record RandomDayOfWeekCollectionTests
     [Fact]
     public void ThrowsExceptionOnToString()
     {
-        Assert.Throws<NotSupportedException>(() =>
+        _ = Assert.Throws<NotSupportedException>(() =>
             new RandomDayOfWeekCollection(new MinUshort()).ToString()
         );
     }
