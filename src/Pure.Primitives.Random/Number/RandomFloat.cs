@@ -2,20 +2,24 @@
 
 namespace Pure.Primitives.Random.Number;
 
+using Random = System.Random;
+
 public sealed record RandomFloat : INumber<float>
 {
-    private readonly float _numberValue;
+    private readonly Lazy<float> _lazyValue;
 
-    public RandomFloat() : this(new System.Random()) { }
+    public RandomFloat()
+        : this(Random.Shared) { }
 
-    public RandomFloat(System.Random random) : this(random.NextSingle()) { }
+    public RandomFloat(Random random)
+        : this(new Lazy<float>(random.NextSingle)) { }
 
-    private RandomFloat(float numberValue)
+    private RandomFloat(Lazy<float> lazyValue)
     {
-        _numberValue = numberValue;
+        _lazyValue = lazyValue;
     }
 
-    float INumber<float>.NumberValue => _numberValue;
+    float INumber<float>.NumberValue => _lazyValue.Value;
 
     public override int GetHashCode()
     {

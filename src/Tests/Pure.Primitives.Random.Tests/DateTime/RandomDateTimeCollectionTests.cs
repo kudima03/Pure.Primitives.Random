@@ -19,9 +19,7 @@ public sealed record RandomDateTimeCollectionTests
     [Fact]
     public void EnumeratesAsUntyped()
     {
-        const ushort count = 1000;
-
-        IEnumerable randoms = new RandomDateTimeCollection(new UShort(count));
+        IEnumerable randoms = new RandomDateTimeCollection();
 
         int i = 0;
 
@@ -30,7 +28,7 @@ public sealed record RandomDateTimeCollectionTests
             i++;
         }
 
-        Assert.Equal(count, i);
+        Assert.True(i > 0);
     }
 
     [Fact]
@@ -40,21 +38,27 @@ public sealed record RandomDateTimeCollectionTests
 
         IEnumerable<IDateTime> values = new RandomDateTimeCollection(new UShort(1000), random);
 
-        Assert.All(values,
-            x => new System.DateTime(x.Year.NumberValue,
+        Assert.All(
+            values,
+            x => new System.DateTime(
+                x.Year.NumberValue,
                 x.Month.NumberValue,
                 x.Day.NumberValue,
                 x.Hour.NumberValue,
                 x.Minute.NumberValue,
                 x.Second.NumberValue,
                 x.Millisecond.NumberValue,
-                x.Microsecond.NumberValue));
+                x.Microsecond.NumberValue
+            )
+        );
 
-        Assert.True(values.All(x =>
-        {
-            ushort nanosecond = x.Nanosecond.NumberValue;
-            return nanosecond is >= 0 and < 1000;
-        }));
+        Assert.True(
+            values.All(x =>
+            {
+                ushort nanosecond = x.Nanosecond.NumberValue;
+                return nanosecond is >= 0 and < 1000;
+            })
+        );
     }
 
     [Fact]
@@ -204,12 +208,16 @@ public sealed record RandomDateTimeCollectionTests
     [Fact]
     public void ThrowsExceptionOnGetHashCode()
     {
-        Assert.Throws<NotSupportedException>(() => new RandomDateTimeCollection(new MinUshort()).GetHashCode());
+        Assert.Throws<NotSupportedException>(() =>
+            new RandomDateTimeCollection(new MinUshort()).GetHashCode()
+        );
     }
 
     [Fact]
     public void ThrowsExceptionOnToString()
     {
-        Assert.Throws<NotSupportedException>(() => new RandomDateTimeCollection(new MinUshort()).ToString());
+        Assert.Throws<NotSupportedException>(() =>
+            new RandomDateTimeCollection(new MinUshort()).ToString()
+        );
     }
 }

@@ -1,16 +1,21 @@
 ﻿using Pure.Primitives.Abstractions.DayOfWeek;
 using Pure.Primitives.Abstractions.Number;
 using Pure.Primitives.Number;
+using Pure.Primitives.Random.Number;
 
 namespace Pure.Primitives.Random.DayOfWeek;
+
+using Random = System.Random;
 
 public sealed record RandomDayOfWeek : IDayOfWeek
 {
     private readonly INumber<ushort> _dayNumberValue;
 
-    public RandomDayOfWeek() : this(new System.Random()) { }
+    public RandomDayOfWeek()
+        : this(Random.Shared) { }
 
-    public RandomDayOfWeek(System.Random random) : this(new UShort((ushort)random.Next(0, 8))) { }
+    public RandomDayOfWeek(Random random)
+        : this(new RandomUShort(new MinUshort(), new UShort(8), random)) { }
 
     private RandomDayOfWeek(INumber<ushort> dayNumberValue)
     {

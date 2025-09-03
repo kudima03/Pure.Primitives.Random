@@ -19,9 +19,7 @@ public sealed record RandomDateCollectionTests
     [Fact]
     public void EnumeratesAsUntyped()
     {
-        const ushort count = 1000;
-
-        IEnumerable randoms = new RandomDateCollection(new UShort(count));
+        IEnumerable randoms = new RandomDateCollection();
 
         int i = 0;
 
@@ -30,7 +28,7 @@ public sealed record RandomDateCollectionTests
             i++;
         }
 
-        Assert.Equal(count, i);
+        Assert.True(i > 0);
     }
 
     [Fact]
@@ -40,10 +38,10 @@ public sealed record RandomDateCollectionTests
 
         IEnumerable<IDate> values = new RandomDateCollection(new UShort(10000), random);
 
-        Assert.All(values,
-            x => new DateOnly(x.Year.NumberValue,
-                x.Month.NumberValue,
-                x.Day.NumberValue));
+        Assert.All(
+            values,
+            x => new DateOnly(x.Year.NumberValue, x.Month.NumberValue, x.Day.NumberValue)
+        );
     }
 
     [Fact]
@@ -97,12 +95,16 @@ public sealed record RandomDateCollectionTests
     [Fact]
     public void ThrowsExceptionOnGetHashCode()
     {
-        Assert.Throws<NotSupportedException>(() => new RandomDateCollection(new MinUshort()).GetHashCode());
+        Assert.Throws<NotSupportedException>(() =>
+            new RandomDateCollection(new MinUshort()).GetHashCode()
+        );
     }
 
     [Fact]
     public void ThrowsExceptionOnToString()
     {
-        Assert.Throws<NotSupportedException>(() => new RandomDateCollection(new MinUshort()).ToString());
+        Assert.Throws<NotSupportedException>(() =>
+            new RandomDateCollection(new MinUshort()).ToString()
+        );
     }
 }

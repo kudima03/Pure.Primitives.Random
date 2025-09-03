@@ -1,4 +1,5 @@
-﻿using Pure.Primitives.Number;
+﻿using Pure.Primitives.Abstractions.Number;
+using Pure.Primitives.Number;
 using Pure.Primitives.Random.Number;
 using System.Collections;
 
@@ -6,6 +7,19 @@ namespace Pure.Primitives.Random.Tests.Number;
 
 public sealed record RandomUShortCollectionTests
 {
+    [Fact]
+    public void RangeAffectGeneration()
+    {
+        INumber<ushort> max = new RandomUShort(new UShort(10), new MaxUshort());
+        INumber<ushort> min = new RandomUShort(new Zero<ushort>(), max);
+
+        IEnumerable<ushort> values = new RandomUShortCollection(new MaxUshort(), min, max).Select(
+            x => x.NumberValue
+        );
+
+        Assert.True(values.All(x => min.NumberValue <= x && x < max.NumberValue));
+    }
+
     [Fact]
     public void ProduceExactCount()
     {
@@ -16,9 +30,7 @@ public sealed record RandomUShortCollectionTests
     [Fact]
     public void EnumeratesAsUntyped()
     {
-        const ushort count = 1000;
-
-        IEnumerable randoms = new RandomUShortCollection(new UShort(count));
+        IEnumerable randoms = new RandomUShortCollection();
 
         int i = 0;
 
@@ -27,7 +39,7 @@ public sealed record RandomUShortCollectionTests
             i++;
         }
 
-        Assert.Equal(count, i);
+        Assert.True(i > 0);
     }
 
     [Fact]
@@ -63,12 +75,16 @@ public sealed record RandomUShortCollectionTests
     [Fact]
     public void ThrowsExceptionOnGetHashCode()
     {
-        Assert.Throws<NotSupportedException>(() => new RandomUShortCollection(new MinUshort()).GetHashCode());
+        Assert.Throws<NotSupportedException>(() =>
+            new RandomUShortCollection(new MinUshort()).GetHashCode()
+        );
     }
 
     [Fact]
     public void ThrowsExceptionOnToString()
     {
-        Assert.Throws<NotSupportedException>(() => new RandomUShortCollection(new MinUshort()).ToString());
+        Assert.Throws<NotSupportedException>(() =>
+            new RandomUShortCollection(new MinUshort()).ToString()
+        );
     }
 }

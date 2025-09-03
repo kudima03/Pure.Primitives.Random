@@ -12,13 +12,12 @@ public sealed record RandomDateTests
     {
         Random random = new Random();
 
-        IEnumerable<IDate> values = Enumerable.Range(0, 10000)
-            .Select(_ => new RandomDate(random));
+        IEnumerable<IDate> values = Enumerable.Range(0, 10000).Select(_ => new RandomDate(random));
 
-        Assert.All(values,
-            x => new DateOnly(x.Year.NumberValue,
-                x.Month.NumberValue,
-                x.Day.NumberValue));
+        Assert.All(
+            values,
+            x => new DateOnly(x.Year.NumberValue, x.Month.NumberValue, x.Day.NumberValue)
+        );
     }
 
     [Fact]
@@ -26,7 +25,8 @@ public sealed record RandomDateTests
     {
         Random random = new Random();
 
-        IEnumerable<int> values = Enumerable.Range(0, 10000)
+        IEnumerable<int> values = Enumerable
+            .Range(0, 10000)
             .Select(_ => new RandomDate(random))
             .Cast<IDate>()
             .Select(x => (int)x.Day.NumberValue)
@@ -44,7 +44,8 @@ public sealed record RandomDateTests
     {
         Random random = new Random();
 
-        IEnumerable<int> values = Enumerable.Range(0, 10000)
+        IEnumerable<int> values = Enumerable
+            .Range(0, 10000)
             .Select(_ => new RandomDate(random))
             .Cast<IDate>()
             .Select(x => (int)x.Month.NumberValue)
@@ -62,7 +63,8 @@ public sealed record RandomDateTests
     {
         Random random = new Random();
 
-        IEnumerable<int> values = Enumerable.Range(0, 10000)
+        IEnumerable<int> values = Enumerable
+            .Range(0, 10000)
             .Select(_ => new RandomDate(random))
             .Cast<IDate>()
             .Select(x => (int)x.Year.NumberValue)

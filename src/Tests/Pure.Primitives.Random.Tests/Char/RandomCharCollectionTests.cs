@@ -18,9 +18,7 @@ public sealed record RandomCharCollectionTests
     [Fact]
     public void EnumeratesAsUntyped()
     {
-        const ushort count = 1000;
-
-        IEnumerable randoms = new RandomCharCollection(new UShort(count));
+        IEnumerable randoms = new RandomCharCollection();
 
         int i = 0;
 
@@ -29,7 +27,7 @@ public sealed record RandomCharCollectionTests
             i++;
         }
 
-        Assert.Equal(count, i);
+        Assert.True(i > 0);
     }
 
     [Fact]
@@ -65,12 +63,16 @@ public sealed record RandomCharCollectionTests
     [Fact]
     public void ThrowsExceptionOnGetHashCode()
     {
-        Assert.Throws<NotSupportedException>(() => new RandomCharCollection(new MinUshort()).GetHashCode());
+        Assert.Throws<NotSupportedException>(() =>
+            new RandomCharCollection(new MinUshort()).GetHashCode()
+        );
     }
 
     [Fact]
     public void ThrowsExceptionOnToString()
     {
-        Assert.Throws<NotSupportedException>(() => new RandomCharCollection(new MinUshort()).ToString());
+        Assert.Throws<NotSupportedException>(() =>
+            new RandomCharCollection(new MinUshort()).ToString()
+        );
     }
 }

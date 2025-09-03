@@ -12,7 +12,8 @@ public sealed record RandomDecimalTests
     {
         Random random = new Random();
 
-        IEnumerable<double> values = Enumerable.Range(0, 10000)
+        IEnumerable<double> values = Enumerable
+            .Range(0, 10000)
             .Select(_ => new RandomDecimal(random))
             .Cast<INumber<decimal>>()
             .Select(x => Convert.ToDouble(x.NumberValue))
@@ -28,7 +29,8 @@ public sealed record RandomDecimalTests
     [Fact]
     public void ProduceNormalStandardDeviation()
     {
-        IEnumerable<double> values = Enumerable.Range(0, 10000)
+        IEnumerable<double> values = Enumerable
+            .Range(0, 10000)
             .Select(_ => new RandomDecimal())
             .Cast<INumber<decimal>>()
             .Select(x => Convert.ToDouble(x.NumberValue))

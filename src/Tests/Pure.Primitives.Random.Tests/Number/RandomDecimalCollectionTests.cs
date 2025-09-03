@@ -16,9 +16,7 @@ public sealed record RandomDecimalCollectionTests
     [Fact]
     public void EnumeratesAsUntyped()
     {
-        const ushort count = 1000;
-
-        IEnumerable randoms = new RandomDecimalCollection(new UShort(count));
+        IEnumerable randoms = new RandomDecimalCollection();
 
         int i = 0;
 
@@ -27,7 +25,7 @@ public sealed record RandomDecimalCollectionTests
             i++;
         }
 
-        Assert.Equal(count, i);
+        Assert.True(i > 0);
     }
 
     [Fact]
@@ -63,12 +61,16 @@ public sealed record RandomDecimalCollectionTests
     [Fact]
     public void ThrowsExceptionOnGetHashCode()
     {
-        Assert.Throws<NotSupportedException>(() => new RandomDecimalCollection(new MinUshort()).GetHashCode());
+        Assert.Throws<NotSupportedException>(() =>
+            new RandomDecimalCollection(new MinUshort()).GetHashCode()
+        );
     }
 
     [Fact]
     public void ThrowsExceptionOnToString()
     {
-        Assert.Throws<NotSupportedException>(() => new RandomDecimalCollection(new MinUshort()).ToString());
+        Assert.Throws<NotSupportedException>(() =>
+            new RandomDecimalCollection(new MinUshort()).ToString()
+        );
     }
 }

@@ -1,29 +1,62 @@
 ﻿using Pure.Primitives.Abstractions.Number;
 using Pure.Primitives.Abstractions.String;
+using Pure.Primitives.Random.Number;
 using System.Collections;
 
 namespace Pure.Primitives.Random.String;
+
+using Random = System.Random;
 
 public sealed record RandomStringCollection : IEnumerable<IString>
 {
     private readonly INumber<ushort> _count;
 
-    private readonly INumber<ushort> _length;
+    private readonly IEnumerable<INumber<ushort>> _lengths;
 
-    private readonly System.Random _random;
+    private readonly Random _random;
 
-    public RandomStringCollection(INumber<ushort> count, INumber<ushort> length) : this(count, length, new System.Random()) { }
+    public RandomStringCollection()
+        : this(Random.Shared) { }
 
-    public RandomStringCollection(INumber<ushort> count, INumber<ushort> length, System.Random random)
+    public RandomStringCollection(Random random)
+        : this(new RandomUShort(random), random) { }
+
+    public RandomStringCollection(INumber<ushort> count)
+        : this(count, Random.Shared) { }
+
+    public RandomStringCollection(INumber<ushort> count, Random random)
+        : this(count, new RandomUShortCollection(count, random)) { }
+
+    public RandomStringCollection(INumber<ushort> count, INumber<ushort> length)
+        : this(count, length, Random.Shared) { }
+
+    public RandomStringCollection(INumber<ushort> count, INumber<ushort> length, Random random)
+        : this(count, Enumerable.Range(0, count.NumberValue).Select(_ => length), random) { }
+
+    public RandomStringCollection(INumber<ushort> count, IEnumerable<INumber<ushort>> lengths)
+        : this(count, lengths, Random.Shared) { }
+
+    public RandomStringCollection(
+        INumber<ushort> count,
+        IEnumerable<INumber<ushort>> lengths,
+        Random random
+    )
     {
         _count = count;
+        _lengths = lengths;
         _random = random;
-        _length = length;
     }
 
     public IEnumerator<IString> GetEnumerator()
     {
-        return Enumerable.Range(0, _count.NumberValue).Select(_ => new RandomString(_length, _random)).GetEnumerator();
+        using IEnumerator<INumber<ushort>> lengthEnumerator = _lengths.GetEnumerator();
+
+        for (int i = 0; i < _count.NumberValue; i++)
+        {
+            yield return !lengthEnumerator.MoveNext()
+                ? throw new ArgumentException()
+                : new RandomString(lengthEnumerator.Current, _random);
+        }
     }
 
     public override int GetHashCode()

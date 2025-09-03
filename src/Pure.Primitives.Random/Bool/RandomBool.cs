@@ -2,20 +2,24 @@
 
 namespace Pure.Primitives.Random.Bool;
 
+using Random = System.Random;
+
 public sealed record RandomBool : IBool
 {
-    private readonly bool _boolValue;
+    private readonly Lazy<bool> _lazyBool;
 
-    public RandomBool() : this(new System.Random()) { }
+    public RandomBool()
+        : this(Random.Shared) { }
 
-    public RandomBool(System.Random random) : this(Convert.ToBoolean(random.Next(0, 2))) { }
+    public RandomBool(Random random)
+        : this(new Lazy<bool>(() => Convert.ToBoolean(random.Next(0, 2)))) { }
 
-    private RandomBool(bool boolValue)
+    private RandomBool(Lazy<bool> boolValue)
     {
-        _boolValue = boolValue;
+        _lazyBool = boolValue;
     }
 
-    bool IBool.BoolValue => _boolValue;
+    bool IBool.BoolValue => _lazyBool.Value;
 
     public override int GetHashCode()
     {

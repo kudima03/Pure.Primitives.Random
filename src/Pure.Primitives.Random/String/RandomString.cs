@@ -1,34 +1,51 @@
 ﻿using Pure.Primitives.Abstractions.Char;
 using Pure.Primitives.Abstractions.Number;
 using Pure.Primitives.Abstractions.String;
+using Pure.Primitives.Random.Number;
 using System.Collections;
 
 namespace Pure.Primitives.Random.String;
 
 using Char = Primitives.Char.Char;
+using Random = System.Random;
 
 public sealed record RandomString : IString
 {
-    private readonly string _textValue;
+    private readonly Lazy<string> _lazyValue;
 
-    public RandomString(INumber<ushort> length) : this(length, new System.Random()) { }
+    public RandomString()
+        : this(Random.Shared) { }
 
-    public RandomString(INumber<ushort> length, System.Random random) :
-        this(string.Join(string.Empty, Enumerable.Range(0, length.NumberValue)
-            .Select(_ => random.Next(char.MinValue, char.MaxValue))
-            .Select(Convert.ToChar)))
+    public RandomString(Random random)
+        : this(new RandomUShort(random)) { }
+
+    public RandomString(INumber<ushort> length)
+        : this(length, Random.Shared) { }
+
+    public RandomString(INumber<ushort> length, Random random)
+        : this(
+            new Lazy<string>(() =>
+                string.Join(
+                    string.Empty,
+                    Enumerable
+                        .Range(0, length.NumberValue)
+                        .Select(_ => random.Next(char.MinValue, char.MaxValue))
+                        .Select(Convert.ToChar)
+                )
+            )
+        )
     { }
 
-    private RandomString(string textValue)
+    private RandomString(Lazy<string> lazyValue)
     {
-        _textValue = textValue;
+        _lazyValue = lazyValue;
     }
 
-    string IString.TextValue => _textValue;
+    string IString.TextValue => _lazyValue.Value;
 
     public IEnumerator<IChar> GetEnumerator()
     {
-        return _textValue.Select(x => new Char(x)).GetEnumerator();
+        return _lazyValue.Value.Select(x => new Char(x)).GetEnumerator();
     }
 
     public override int GetHashCode()

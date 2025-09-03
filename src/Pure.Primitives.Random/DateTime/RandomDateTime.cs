@@ -7,16 +7,19 @@ using Pure.Primitives.Random.Time;
 
 namespace Pure.Primitives.Random.DateTime;
 
+using Random = System.Random;
+
 public sealed record RandomDateTime : IDateTime
 {
-    public RandomDateTime() : this(new System.Random()) { }
+    public RandomDateTime()
+        : this(Random.Shared) { }
 
-    public RandomDateTime(System.Random random) :
-        this(new RandomDate(random), new RandomTime(random))
-    { }
+    public RandomDateTime(Random random)
+        : this(new RandomDate(random), new RandomTime(random)) { }
 
-    private RandomDateTime(IDate date, ITime time) :
-        this(date.Year,
+    private RandomDateTime(IDate date, ITime time)
+        : this(
+            date.Year,
             date.Month,
             date.Day,
             time.Hour,
@@ -24,7 +27,8 @@ public sealed record RandomDateTime : IDateTime
             time.Second,
             time.Millisecond,
             time.Microsecond,
-            time.Nanosecond)
+            time.Nanosecond
+        )
     { }
 
     private RandomDateTime(
@@ -36,7 +40,8 @@ public sealed record RandomDateTime : IDateTime
         INumber<ushort> second,
         INumber<ushort> millisecond,
         INumber<ushort> microsecond,
-        INumber<ushort> nanosecond)
+        INumber<ushort> nanosecond
+    )
     {
         Year = year;
         Month = month;

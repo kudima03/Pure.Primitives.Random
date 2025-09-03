@@ -1,18 +1,28 @@
 ﻿using Pure.Primitives.Abstractions.DateTime;
 using Pure.Primitives.Abstractions.Number;
+using Pure.Primitives.Random.Number;
 using System.Collections;
 
 namespace Pure.Primitives.Random.DateTime;
+
+using Random = System.Random;
 
 public sealed record RandomDateTimeCollection : IEnumerable<IDateTime>
 {
     private readonly INumber<ushort> _count;
 
-    private readonly System.Random _random;
+    private readonly Random _random;
 
-    public RandomDateTimeCollection(INumber<ushort> count) : this(count, new System.Random()) { }
+    public RandomDateTimeCollection()
+        : this(Random.Shared) { }
 
-    public RandomDateTimeCollection(INumber<ushort> count, System.Random random)
+    public RandomDateTimeCollection(Random random)
+        : this(new RandomUShort(random), random) { }
+
+    public RandomDateTimeCollection(INumber<ushort> count)
+        : this(count, Random.Shared) { }
+
+    public RandomDateTimeCollection(INumber<ushort> count, Random random)
     {
         _count = count;
         _random = random;
@@ -20,7 +30,10 @@ public sealed record RandomDateTimeCollection : IEnumerable<IDateTime>
 
     public IEnumerator<IDateTime> GetEnumerator()
     {
-        return Enumerable.Range(0, _count.NumberValue).Select(_ => new RandomDateTime(_random)).GetEnumerator();
+        return Enumerable
+            .Range(0, _count.NumberValue)
+            .Select(_ => new RandomDateTime(_random))
+            .GetEnumerator();
     }
 
     public override int GetHashCode()
