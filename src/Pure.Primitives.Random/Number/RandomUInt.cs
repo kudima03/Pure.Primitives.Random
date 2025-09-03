@@ -1,4 +1,4 @@
-﻿using Pure.Primitives.Abstractions.Number;
+using Pure.Primitives.Abstractions.Number;
 using Pure.Primitives.Number;
 
 namespace Pure.Primitives.Random.Number;
@@ -19,7 +19,10 @@ public sealed record RandomUInt : INumber<uint>
         : this(min, max, Random.Shared) { }
 
     public RandomUInt(INumber<uint> min, INumber<uint> max, Random random)
-        : this(new Lazy<uint>(() => (uint)random.NextInt64(min.NumberValue, max.NumberValue))) { }
+        : this(
+            new Lazy<uint>(() => (uint)random.NextInt64(min.NumberValue, max.NumberValue))
+        )
+    { }
 
     private RandomUInt(Lazy<uint> lazyValue)
     {

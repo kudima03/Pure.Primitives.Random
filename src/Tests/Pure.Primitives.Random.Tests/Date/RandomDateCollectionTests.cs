@@ -1,7 +1,7 @@
-﻿using Pure.Primitives.Abstractions.Date;
+using System.Collections;
+using Pure.Primitives.Abstractions.Date;
 using Pure.Primitives.Number;
 using Pure.Primitives.Random.Date;
-using System.Collections;
 
 namespace Pure.Primitives.Random.Tests.Date;
 
@@ -49,12 +49,15 @@ public sealed record RandomDateCollectionTests
     {
         Random random = new Random();
 
-        IEnumerable<int> values = new RandomDateCollection(new UShort(10000), random)
-            .Select(x => (int)x.Day.NumberValue)
-            .ToArray();
+        IEnumerable<int> values =
+        [
+            .. new RandomDateCollection(new UShort(10000), random).Select(x =>
+                (int)x.Day.NumberValue
+            ),
+        ];
 
         double mean = values.Average();
-        double variance = values.Select(v => Math.Pow(v - mean, 2)).Average();
+        double variance = values.Average(v => Math.Pow(v - mean, 2));
         double stdDev = Math.Sqrt(variance);
 
         Assert.InRange(stdDev, 8.7, 9);
@@ -65,12 +68,15 @@ public sealed record RandomDateCollectionTests
     {
         Random random = new Random();
 
-        IEnumerable<int> values = new RandomDateCollection(new UShort(10000), random)
-            .Select(x => (int)x.Month.NumberValue)
-            .ToArray();
+        IEnumerable<int> values =
+        [
+            .. new RandomDateCollection(new UShort(10000), random).Select(x =>
+                (int)x.Month.NumberValue
+            ),
+        ];
 
         double mean = values.Average();
-        double variance = values.Select(v => Math.Pow(v - mean, 2)).Average();
+        double variance = values.Average(v => Math.Pow(v - mean, 2));
         double stdDev = Math.Sqrt(variance);
 
         Assert.InRange(stdDev, 3.4, 3.6);
@@ -81,12 +87,15 @@ public sealed record RandomDateCollectionTests
     {
         Random random = new Random();
 
-        IEnumerable<int> values = new RandomDateCollection(new UShort(10000), random)
-            .Select(x => (int)x.Year.NumberValue)
-            .ToArray();
+        IEnumerable<int> values =
+        [
+            .. new RandomDateCollection(new UShort(10000), random).Select(x =>
+                (int)x.Year.NumberValue
+            ),
+        ];
 
         double mean = values.Average();
-        double variance = values.Select(v => Math.Pow(v - mean, 2)).Average();
+        double variance = values.Average(v => Math.Pow(v - mean, 2));
         double stdDev = Math.Sqrt(variance);
 
         Assert.InRange(stdDev, 2750, 2950);
@@ -95,7 +104,7 @@ public sealed record RandomDateCollectionTests
     [Fact]
     public void ThrowsExceptionOnGetHashCode()
     {
-        Assert.Throws<NotSupportedException>(() =>
+        _ = Assert.Throws<NotSupportedException>(() =>
             new RandomDateCollection(new MinUshort()).GetHashCode()
         );
     }
@@ -103,7 +112,7 @@ public sealed record RandomDateCollectionTests
     [Fact]
     public void ThrowsExceptionOnToString()
     {
-        Assert.Throws<NotSupportedException>(() =>
+        _ = Assert.Throws<NotSupportedException>(() =>
             new RandomDateCollection(new MinUshort()).ToString()
         );
     }

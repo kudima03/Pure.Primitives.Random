@@ -1,4 +1,4 @@
-﻿using Pure.Primitives.Abstractions.Char;
+using Pure.Primitives.Abstractions.Char;
 
 namespace Pure.Primitives.Random.Char;
 
@@ -12,7 +12,12 @@ public sealed record RandomChar : IChar
         : this(Random.Shared) { }
 
     public RandomChar(Random random)
-        : this(new Lazy<char>(() => Convert.ToChar(random.Next(char.MinValue, char.MaxValue)))) { }
+        : this(
+            new Lazy<char>(() =>
+                Convert.ToChar(random.Next(char.MinValue, char.MaxValue))
+            )
+        )
+    { }
 
     private RandomChar(Lazy<char> lazyChar)
     {

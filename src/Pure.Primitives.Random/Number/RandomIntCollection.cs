@@ -1,6 +1,6 @@
-﻿using Pure.Primitives.Abstractions.Number;
-using Pure.Primitives.Number;
 using System.Collections;
+using Pure.Primitives.Abstractions.Number;
+using Pure.Primitives.Number;
 
 namespace Pure.Primitives.Random.Number;
 

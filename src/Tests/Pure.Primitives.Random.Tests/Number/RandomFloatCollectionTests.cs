@@ -1,6 +1,6 @@
-﻿using Pure.Primitives.Number;
-using Pure.Primitives.Random.Number;
 using System.Collections;
+using Pure.Primitives.Number;
+using Pure.Primitives.Random.Number;
 
 namespace Pure.Primitives.Random.Tests.Number;
 
@@ -35,12 +35,15 @@ public sealed record RandomFloatCollectionTests
     {
         Random random = new Random();
 
-        IEnumerable<double> values = new RandomFloatCollection(new UShort(10000), random)
-            .Select(x => Convert.ToDouble(x.NumberValue))
-            .ToArray();
+        IEnumerable<double> values =
+        [
+            .. new RandomFloatCollection(new UShort(10000), random).Select(x =>
+                Convert.ToDouble(x.NumberValue)
+            ),
+        ];
 
         double mean = values.Average();
-        double variance = values.Select(v => Math.Pow(v - mean, 2)).Average();
+        double variance = values.Average(v => Math.Pow(v - mean, 2));
         double stdDev = Math.Sqrt(variance);
 
         Assert.InRange(stdDev, -1, 1);
@@ -49,12 +52,15 @@ public sealed record RandomFloatCollectionTests
     [Fact]
     public void ProduceNormalStandardDeviation()
     {
-        IEnumerable<double> values = new RandomFloatCollection(new UShort(10000))
-            .Select(x => Convert.ToDouble(x.NumberValue))
-            .ToArray();
+        IEnumerable<double> values =
+        [
+            .. new RandomFloatCollection(new UShort(10000)).Select(x =>
+                Convert.ToDouble(x.NumberValue)
+            ),
+        ];
 
         double mean = values.Average();
-        double variance = values.Select(v => Math.Pow(v - mean, 2)).Average();
+        double variance = values.Average(v => Math.Pow(v - mean, 2));
         double stdDev = Math.Sqrt(variance);
 
         Assert.InRange(stdDev, -1, 1);
@@ -63,7 +69,7 @@ public sealed record RandomFloatCollectionTests
     [Fact]
     public void ThrowsExceptionOnGetHashCode()
     {
-        Assert.Throws<NotSupportedException>(() =>
+        _ = Assert.Throws<NotSupportedException>(() =>
             new RandomFloatCollection(new MinUshort()).GetHashCode()
         );
     }
@@ -71,7 +77,7 @@ public sealed record RandomFloatCollectionTests
     [Fact]
     public void ThrowsExceptionOnToString()
     {
-        Assert.Throws<NotSupportedException>(() =>
+        _ = Assert.Throws<NotSupportedException>(() =>
             new RandomFloatCollection(new MinUshort()).ToString()
         );
     }

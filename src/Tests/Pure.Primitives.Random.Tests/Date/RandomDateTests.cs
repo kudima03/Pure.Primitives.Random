@@ -1,4 +1,4 @@
-﻿using Pure.Primitives.Abstractions.Date;
+using Pure.Primitives.Abstractions.Date;
 using Pure.Primitives.Random.Date;
 
 namespace Pure.Primitives.Random.Tests.Date;
@@ -12,7 +12,9 @@ public sealed record RandomDateTests
     {
         Random random = new Random();
 
-        IEnumerable<IDate> values = Enumerable.Range(0, 10000).Select(_ => new RandomDate(random));
+        IEnumerable<IDate> values = Enumerable
+            .Range(0, 10000)
+            .Select(_ => new RandomDate(random));
 
         Assert.All(
             values,
@@ -25,15 +27,17 @@ public sealed record RandomDateTests
     {
         Random random = new Random();
 
-        IEnumerable<int> values = Enumerable
-            .Range(0, 10000)
-            .Select(_ => new RandomDate(random))
-            .Cast<IDate>()
-            .Select(x => (int)x.Day.NumberValue)
-            .ToArray();
+        IEnumerable<int> values =
+        [
+            .. Enumerable
+                .Range(0, 10000)
+                .Select(_ => new RandomDate(random))
+                .Cast<IDate>()
+                .Select(x => (int)x.Day.NumberValue),
+        ];
 
         double mean = values.Average();
-        double variance = values.Select(v => Math.Pow(v - mean, 2)).Average();
+        double variance = values.Average(v => Math.Pow(v - mean, 2));
         double stdDev = Math.Sqrt(variance);
 
         Assert.InRange(stdDev, 8.7, 9);
@@ -44,15 +48,17 @@ public sealed record RandomDateTests
     {
         Random random = new Random();
 
-        IEnumerable<int> values = Enumerable
-            .Range(0, 10000)
-            .Select(_ => new RandomDate(random))
-            .Cast<IDate>()
-            .Select(x => (int)x.Month.NumberValue)
-            .ToArray();
+        IEnumerable<int> values =
+        [
+            .. Enumerable
+                .Range(0, 10000)
+                .Select(_ => new RandomDate(random))
+                .Cast<IDate>()
+                .Select(x => (int)x.Month.NumberValue),
+        ];
 
         double mean = values.Average();
-        double variance = values.Select(v => Math.Pow(v - mean, 2)).Average();
+        double variance = values.Average(v => Math.Pow(v - mean, 2));
         double stdDev = Math.Sqrt(variance);
 
         Assert.InRange(stdDev, 3.4, 3.6);
@@ -63,15 +69,17 @@ public sealed record RandomDateTests
     {
         Random random = new Random();
 
-        IEnumerable<int> values = Enumerable
-            .Range(0, 10000)
-            .Select(_ => new RandomDate(random))
-            .Cast<IDate>()
-            .Select(x => (int)x.Year.NumberValue)
-            .ToArray();
+        IEnumerable<int> values =
+        [
+            .. Enumerable
+                .Range(0, 10000)
+                .Select(_ => new RandomDate(random))
+                .Cast<IDate>()
+                .Select(x => (int)x.Year.NumberValue),
+        ];
 
         double mean = values.Average();
-        double variance = values.Select(v => Math.Pow(v - mean, 2)).Average();
+        double variance = values.Average(v => Math.Pow(v - mean, 2));
         double stdDev = Math.Sqrt(variance);
 
         Assert.InRange(stdDev, 2750, 2950);
@@ -80,12 +88,12 @@ public sealed record RandomDateTests
     [Fact]
     public void ThrowsExceptionOnGetHashCode()
     {
-        Assert.Throws<NotSupportedException>(() => new RandomDate().GetHashCode());
+        _ = Assert.Throws<NotSupportedException>(() => new RandomDate().GetHashCode());
     }
 
     [Fact]
     public void ThrowsExceptionOnToString()
     {
-        Assert.Throws<NotSupportedException>(() => new RandomDate().ToString());
+        _ = Assert.Throws<NotSupportedException>(() => new RandomDate().ToString());
     }
 }

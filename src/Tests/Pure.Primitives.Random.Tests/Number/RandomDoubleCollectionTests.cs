@@ -1,6 +1,6 @@
-﻿using Pure.Primitives.Number;
-using Pure.Primitives.Random.Number;
 using System.Collections;
+using Pure.Primitives.Number;
+using Pure.Primitives.Random.Number;
 
 namespace Pure.Primitives.Random.Tests.Number;
 
@@ -35,12 +35,15 @@ public sealed record RandomDoubleCollectionTests
     {
         Random random = new Random();
 
-        IEnumerable<double> values = new RandomDoubleCollection(new UShort(10000), random)
-            .Select(x => x.NumberValue)
-            .ToArray();
+        IEnumerable<double> values =
+        [
+            .. new RandomDoubleCollection(new UShort(10000), random).Select(x =>
+                x.NumberValue
+            ),
+        ];
 
         double mean = values.Average();
-        double variance = values.Select(v => Math.Pow(v - mean, 2)).Average();
+        double variance = values.Average(v => Math.Pow(v - mean, 2));
         double stdDev = Math.Sqrt(variance);
 
         Assert.InRange(stdDev, 0, 1);
@@ -49,12 +52,13 @@ public sealed record RandomDoubleCollectionTests
     [Fact]
     public void ProduceNormalStandardDeviation()
     {
-        IEnumerable<double> values = new RandomDoubleCollection(new UShort(10000))
-            .Select(x => x.NumberValue)
-            .ToArray();
+        IEnumerable<double> values =
+        [
+            .. new RandomDoubleCollection(new UShort(10000)).Select(x => x.NumberValue),
+        ];
 
         double mean = values.Average();
-        double variance = values.Select(v => Math.Pow(v - mean, 2)).Average();
+        double variance = values.Average(v => Math.Pow(v - mean, 2));
         double stdDev = Math.Sqrt(variance);
 
         Assert.InRange(stdDev, 0, 1);
@@ -63,7 +67,7 @@ public sealed record RandomDoubleCollectionTests
     [Fact]
     public void ThrowsExceptionOnGetHashCode()
     {
-        Assert.Throws<NotSupportedException>(() =>
+        _ = Assert.Throws<NotSupportedException>(() =>
             new RandomDoubleCollection(new MinUshort()).GetHashCode()
         );
     }
@@ -71,7 +75,7 @@ public sealed record RandomDoubleCollectionTests
     [Fact]
     public void ThrowsExceptionOnToString()
     {
-        Assert.Throws<NotSupportedException>(() =>
+        _ = Assert.Throws<NotSupportedException>(() =>
             new RandomDoubleCollection(new MinUshort()).ToString()
         );
     }

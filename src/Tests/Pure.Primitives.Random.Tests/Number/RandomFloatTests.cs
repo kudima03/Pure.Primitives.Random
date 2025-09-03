@@ -1,4 +1,4 @@
-﻿using Pure.Primitives.Abstractions.Number;
+using Pure.Primitives.Abstractions.Number;
 using Pure.Primitives.Random.Number;
 
 namespace Pure.Primitives.Random.Tests.Number;
@@ -12,15 +12,17 @@ public sealed record RandomFloatTests
     {
         Random random = new Random();
 
-        IEnumerable<float> values = Enumerable
-            .Range(0, 10000)
-            .Select(_ => new RandomFloat(random))
-            .Cast<INumber<float>>()
-            .Select(x => x.NumberValue)
-            .ToArray();
+        IEnumerable<float> values =
+        [
+            .. Enumerable
+                .Range(0, 10000)
+                .Select(_ => new RandomFloat(random))
+                .Cast<INumber<float>>()
+                .Select(x => x.NumberValue),
+        ];
 
         double mean = values.Average();
-        double variance = values.Select(v => Math.Pow(v - mean, 2)).Average();
+        double variance = values.Average(v => Math.Pow(v - mean, 2));
         double stdDev = Math.Sqrt(variance);
 
         Assert.InRange(stdDev, 0.1, 1);
@@ -29,15 +31,17 @@ public sealed record RandomFloatTests
     [Fact]
     public void ProduceNormalStandardDeviation()
     {
-        IEnumerable<float> values = Enumerable
-            .Range(0, 10000)
-            .Select(_ => new RandomFloat())
-            .Cast<INumber<float>>()
-            .Select(x => x.NumberValue)
-            .ToArray();
+        IEnumerable<float> values =
+        [
+            .. Enumerable
+                .Range(0, 10000)
+                .Select(_ => new RandomFloat())
+                .Cast<INumber<float>>()
+                .Select(x => x.NumberValue),
+        ];
 
         double mean = values.Average();
-        double variance = values.Select(v => Math.Pow(v - mean, 2)).Average();
+        double variance = values.Average(v => Math.Pow(v - mean, 2));
         double stdDev = Math.Sqrt(variance);
 
         Assert.InRange(stdDev, 0.1, 1);
@@ -46,12 +50,12 @@ public sealed record RandomFloatTests
     [Fact]
     public void ThrowsExceptionOnGetHashCode()
     {
-        Assert.Throws<NotSupportedException>(() => new RandomFloat().GetHashCode());
+        _ = Assert.Throws<NotSupportedException>(() => new RandomFloat().GetHashCode());
     }
 
     [Fact]
     public void ThrowsExceptionOnToString()
     {
-        Assert.Throws<NotSupportedException>(() => new RandomFloat().ToString());
+        _ = Assert.Throws<NotSupportedException>(() => new RandomFloat().ToString());
     }
 }

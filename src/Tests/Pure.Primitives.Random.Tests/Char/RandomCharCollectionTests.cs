@@ -1,6 +1,6 @@
-﻿using Pure.Primitives.Number;
-using Pure.Primitives.Random.Char;
 using System.Collections;
+using Pure.Primitives.Number;
+using Pure.Primitives.Random.Char;
 
 namespace Pure.Primitives.Random.Tests.Char;
 
@@ -35,12 +35,15 @@ public sealed record RandomCharCollectionTests
     {
         Random random = new Random();
 
-        IEnumerable<int> values = new RandomCharCollection(new UShort(10000), random)
-            .Select(x => Convert.ToInt32(x.CharValue))
-            .ToArray();
+        IEnumerable<int> values =
+        [
+            .. new RandomCharCollection(new UShort(10000), random).Select(x =>
+                Convert.ToInt32(x.CharValue)
+            ),
+        ];
 
         double mean = values.Average();
-        double variance = values.Select(v => Math.Pow(v - mean, 2)).Average();
+        double variance = values.Average(v => Math.Pow(v - mean, 2));
         double stdDev = Math.Sqrt(variance);
 
         Assert.InRange(stdDev, 18000, 20000);
@@ -49,12 +52,15 @@ public sealed record RandomCharCollectionTests
     [Fact]
     public void ProduceNormalStandardDeviation()
     {
-        IEnumerable<int> values = new RandomCharCollection(new UShort(10000))
-            .Select(x => Convert.ToInt32(x.CharValue))
-            .ToArray();
+        IEnumerable<int> values =
+        [
+            .. new RandomCharCollection(new UShort(10000)).Select(x =>
+                Convert.ToInt32(x.CharValue)
+            ),
+        ];
 
         double mean = values.Average();
-        double variance = values.Select(v => Math.Pow(v - mean, 2)).Average();
+        double variance = values.Average(v => Math.Pow(v - mean, 2));
         double stdDev = Math.Sqrt(variance);
 
         Assert.InRange(stdDev, 18000, 20000);
@@ -63,7 +69,7 @@ public sealed record RandomCharCollectionTests
     [Fact]
     public void ThrowsExceptionOnGetHashCode()
     {
-        Assert.Throws<NotSupportedException>(() =>
+        _ = Assert.Throws<NotSupportedException>(() =>
             new RandomCharCollection(new MinUshort()).GetHashCode()
         );
     }
@@ -71,7 +77,7 @@ public sealed record RandomCharCollectionTests
     [Fact]
     public void ThrowsExceptionOnToString()
     {
-        Assert.Throws<NotSupportedException>(() =>
+        _ = Assert.Throws<NotSupportedException>(() =>
             new RandomCharCollection(new MinUshort()).ToString()
         );
     }

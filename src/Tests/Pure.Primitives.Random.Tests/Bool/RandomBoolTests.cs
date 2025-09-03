@@ -1,4 +1,4 @@
-﻿using Pure.Primitives.Abstractions.Bool;
+using Pure.Primitives.Abstractions.Bool;
 using Pure.Primitives.Random.Bool;
 
 namespace Pure.Primitives.Random.Tests.Bool;
@@ -12,15 +12,17 @@ public sealed record RandomBoolTests
     {
         Random random = new Random();
 
-        IEnumerable<int> values = Enumerable
-            .Range(0, 10000)
-            .Select(_ => new RandomBool(random))
-            .Cast<IBool>()
-            .Select(x => Convert.ToInt32(x.BoolValue))
-            .ToArray();
+        IEnumerable<int> values =
+        [
+            .. Enumerable
+                .Range(0, 10000)
+                .Select(_ => new RandomBool(random))
+                .Cast<IBool>()
+                .Select(x => Convert.ToInt32(x.BoolValue)),
+        ];
 
         double mean = values.Average();
-        double variance = values.Select(v => Math.Pow(v - mean, 2)).Average();
+        double variance = values.Average(v => Math.Pow(v - mean, 2));
         double stdDev = Math.Sqrt(variance);
 
         Assert.InRange(stdDev, 0.48, 0.5);
@@ -29,15 +31,17 @@ public sealed record RandomBoolTests
     [Fact]
     public void ProduceCorrectlyOnSequentialCall()
     {
-        IEnumerable<int> values = Enumerable
-            .Range(0, 10000)
-            .Select(_ => new RandomBool())
-            .Cast<IBool>()
-            .Select(x => Convert.ToInt32(x.BoolValue))
-            .ToArray();
+        IEnumerable<int> values =
+        [
+            .. Enumerable
+                .Range(0, 10000)
+                .Select(_ => new RandomBool())
+                .Cast<IBool>()
+                .Select(x => Convert.ToInt32(x.BoolValue)),
+        ];
 
         double mean = values.Average();
-        double variance = values.Select(v => Math.Pow(v - mean, 2)).Average();
+        double variance = values.Average(v => Math.Pow(v - mean, 2));
         double stdDev = Math.Sqrt(variance);
 
         Assert.InRange(stdDev, 0.48, 0.5);
@@ -46,12 +50,12 @@ public sealed record RandomBoolTests
     [Fact]
     public void ThrowsExceptionOnGetHashCode()
     {
-        Assert.Throws<NotSupportedException>(() => new RandomBool().GetHashCode());
+        _ = Assert.Throws<NotSupportedException>(() => new RandomBool().GetHashCode());
     }
 
     [Fact]
     public void ThrowsExceptionOnToString()
     {
-        Assert.Throws<NotSupportedException>(() => new RandomBool().ToString());
+        _ = Assert.Throws<NotSupportedException>(() => new RandomBool().ToString());
     }
 }

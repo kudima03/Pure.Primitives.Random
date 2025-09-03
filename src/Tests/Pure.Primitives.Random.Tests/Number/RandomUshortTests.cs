@@ -1,4 +1,4 @@
-﻿using Pure.Primitives.Abstractions.Number;
+using Pure.Primitives.Abstractions.Number;
 using Pure.Primitives.Number;
 using Pure.Primitives.Random.Number;
 
@@ -14,12 +14,14 @@ public sealed record RandomUShortTests
         INumber<ushort> max = new RandomUShort(new UShort(10), new MaxUshort());
         INumber<ushort> min = new RandomUShort(new Zero<ushort>(), max);
 
-        IEnumerable<ushort> values = Enumerable
-            .Range(0, 10000)
-            .Select(_ => new RandomUShort(min, max))
-            .Cast<INumber<ushort>>()
-            .Select(x => x.NumberValue)
-            .ToArray();
+        IEnumerable<ushort> values =
+        [
+            .. Enumerable
+                .Range(0, 10000)
+                .Select(_ => new RandomUShort(min, max))
+                .Cast<INumber<ushort>>()
+                .Select(x => x.NumberValue),
+        ];
 
         Assert.True(values.All(x => min.NumberValue <= x && x < max.NumberValue));
     }
@@ -27,8 +29,10 @@ public sealed record RandomUShortTests
     [Fact]
     public void ThrowsExceptionOnMinValueGreaterThanMaxValue()
     {
-        Assert.Throws<ArgumentOutOfRangeException>(() =>
-            ((INumber<ushort>)new RandomUShort(new MaxUshort(), new MinUshort())).NumberValue
+        _ = Assert.Throws<ArgumentOutOfRangeException>(() =>
+            (
+                (INumber<ushort>)new RandomUShort(new MaxUshort(), new MinUshort())
+            ).NumberValue
         );
     }
 
@@ -37,15 +41,17 @@ public sealed record RandomUShortTests
     {
         Random random = new Random();
 
-        IEnumerable<int> values = Enumerable
-            .Range(0, 10000)
-            .Select(_ => new RandomUShort(random))
-            .Cast<INumber<ushort>>()
-            .Select(x => (int)x.NumberValue)
-            .ToArray();
+        IEnumerable<int> values =
+        [
+            .. Enumerable
+                .Range(0, 10000)
+                .Select(_ => new RandomUShort(random))
+                .Cast<INumber<ushort>>()
+                .Select(x => (int)x.NumberValue),
+        ];
 
         double mean = values.Average();
-        double variance = values.Select(v => Math.Pow(v - mean, 2)).Average();
+        double variance = values.Average(v => Math.Pow(v - mean, 2));
         double stdDev = Math.Sqrt(variance);
 
         Assert.InRange(stdDev, 18000, 20000);
@@ -54,15 +60,17 @@ public sealed record RandomUShortTests
     [Fact]
     public void ProduceNormalStandardDeviation()
     {
-        IEnumerable<int> values = Enumerable
-            .Range(0, 10000)
-            .Select(_ => new RandomUShort())
-            .Cast<INumber<ushort>>()
-            .Select(x => (int)x.NumberValue)
-            .ToArray();
+        IEnumerable<int> values =
+        [
+            .. Enumerable
+                .Range(0, 10000)
+                .Select(_ => new RandomUShort())
+                .Cast<INumber<ushort>>()
+                .Select(x => (int)x.NumberValue),
+        ];
 
         double mean = values.Average();
-        double variance = values.Select(v => Math.Pow(v - mean, 2)).Average();
+        double variance = values.Average(v => Math.Pow(v - mean, 2));
         double stdDev = Math.Sqrt(variance);
 
         Assert.InRange(stdDev, 18000, 20000);
@@ -71,12 +79,12 @@ public sealed record RandomUShortTests
     [Fact]
     public void ThrowsExceptionOnGetHashCode()
     {
-        Assert.Throws<NotSupportedException>(() => new RandomUShort().GetHashCode());
+        _ = Assert.Throws<NotSupportedException>(() => new RandomUShort().GetHashCode());
     }
 
     [Fact]
     public void ThrowsExceptionOnToString()
     {
-        Assert.Throws<NotSupportedException>(() => new RandomUShort().ToString());
+        _ = Assert.Throws<NotSupportedException>(() => new RandomUShort().ToString());
     }
 }
