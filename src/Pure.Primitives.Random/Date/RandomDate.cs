@@ -1,4 +1,4 @@
-﻿using Pure.Primitives.Abstractions.Date;
+using Pure.Primitives.Abstractions.Date;
 using Pure.Primitives.Abstractions.Number;
 using Pure.Primitives.Number;
 
@@ -17,7 +17,9 @@ public sealed record RandomDate : IDate
         : this(
             new Lazy<DateOnly>(() =>
                 DateOnly.MinValue.AddDays(
-                    random.Next((System.DateTime.MaxValue - System.DateTime.MinValue).Days)
+                    random.Next(
+                        (System.DateTime.MaxValue - System.DateTime.MinValue).Days
+                    )
                 )
             )
         )

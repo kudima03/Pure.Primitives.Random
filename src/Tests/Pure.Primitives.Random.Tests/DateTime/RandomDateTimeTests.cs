@@ -1,4 +1,4 @@
-﻿using Pure.Primitives.Abstractions.DateTime;
+using Pure.Primitives.Abstractions.DateTime;
 using Pure.Primitives.Random.DateTime;
 
 namespace Pure.Primitives.Random.Tests.DateTime;
@@ -44,15 +44,17 @@ public sealed record RandomDateTimeTests
     {
         Random random = new Random();
 
-        IEnumerable<int> values = Enumerable
-            .Range(0, 10000)
-            .Select(_ => new RandomDateTime(random))
-            .Cast<IDateTime>()
-            .Select(x => (int)x.Day.NumberValue)
-            .ToArray();
+        IEnumerable<int> values =
+        [
+            .. Enumerable
+                .Range(0, 10000)
+                .Select(_ => new RandomDateTime(random))
+                .Cast<IDateTime>()
+                .Select(x => (int)x.Day.NumberValue),
+        ];
 
         double mean = values.Average();
-        double variance = values.Select(v => Math.Pow(v - mean, 2)).Average();
+        double variance = values.Average(v => Math.Pow(v - mean, 2));
         double stdDev = Math.Sqrt(variance);
 
         Assert.InRange(stdDev, 8.7, 9);
@@ -63,15 +65,17 @@ public sealed record RandomDateTimeTests
     {
         Random random = new Random();
 
-        IEnumerable<int> values = Enumerable
-            .Range(0, 10000)
-            .Select(_ => new RandomDateTime(random))
-            .Cast<IDateTime>()
-            .Select(x => (int)x.Month.NumberValue)
-            .ToArray();
+        IEnumerable<int> values =
+        [
+            .. Enumerable
+                .Range(0, 10000)
+                .Select(_ => new RandomDateTime(random))
+                .Cast<IDateTime>()
+                .Select(x => (int)x.Month.NumberValue),
+        ];
 
         double mean = values.Average();
-        double variance = values.Select(v => Math.Pow(v - mean, 2)).Average();
+        double variance = values.Average(v => Math.Pow(v - mean, 2));
         double stdDev = Math.Sqrt(variance);
 
         Assert.InRange(stdDev, 3.4, 3.6);
@@ -82,15 +86,17 @@ public sealed record RandomDateTimeTests
     {
         Random random = new Random();
 
-        IEnumerable<int> values = Enumerable
-            .Range(0, 10000)
-            .Select(_ => new RandomDateTime(random))
-            .Cast<IDateTime>()
-            .Select(x => (int)x.Year.NumberValue)
-            .ToArray();
+        IEnumerable<int> values =
+        [
+            .. Enumerable
+                .Range(0, 10000)
+                .Select(_ => new RandomDateTime(random))
+                .Cast<IDateTime>()
+                .Select(x => (int)x.Year.NumberValue),
+        ];
 
         double mean = values.Average();
-        double variance = values.Select(v => Math.Pow(v - mean, 2)).Average();
+        double variance = values.Average(v => Math.Pow(v - mean, 2));
         double stdDev = Math.Sqrt(variance);
 
         Assert.InRange(stdDev, 2750, 2950);
@@ -101,15 +107,17 @@ public sealed record RandomDateTimeTests
     {
         Random random = new Random();
 
-        IEnumerable<int> values = Enumerable
-            .Range(0, 10000)
-            .Select(_ => new RandomDateTime(random))
-            .Cast<IDateTime>()
-            .Select(x => (int)x.Hour.NumberValue)
-            .ToArray();
+        IEnumerable<int> values =
+        [
+            .. Enumerable
+                .Range(0, 10000)
+                .Select(_ => new RandomDateTime(random))
+                .Cast<IDateTime>()
+                .Select(x => (int)x.Hour.NumberValue),
+        ];
 
         double mean = values.Average();
-        double variance = values.Select(v => Math.Pow(v - mean, 2)).Average();
+        double variance = values.Average(v => Math.Pow(v - mean, 2));
         double stdDev = Math.Sqrt(variance);
 
         Assert.InRange(stdDev, 6.8, 7);
@@ -120,15 +128,17 @@ public sealed record RandomDateTimeTests
     {
         Random random = new Random();
 
-        IEnumerable<int> values = Enumerable
-            .Range(0, 10000)
-            .Select(_ => new RandomDateTime(random))
-            .Cast<IDateTime>()
-            .Select(x => (int)x.Minute.NumberValue)
-            .ToArray();
+        IEnumerable<int> values =
+        [
+            .. Enumerable
+                .Range(0, 10000)
+                .Select(_ => new RandomDateTime(random))
+                .Cast<IDateTime>()
+                .Select(x => (int)x.Minute.NumberValue),
+        ];
 
         double mean = values.Average();
-        double variance = values.Select(v => Math.Pow(v - mean, 2)).Average();
+        double variance = values.Average(v => Math.Pow(v - mean, 2));
         double stdDev = Math.Sqrt(variance);
 
         Assert.InRange(stdDev, 17, 17.5);
@@ -139,15 +149,17 @@ public sealed record RandomDateTimeTests
     {
         Random random = new Random();
 
-        IEnumerable<int> values = Enumerable
-            .Range(0, 10000)
-            .Select(_ => new RandomDateTime(random))
-            .Cast<IDateTime>()
-            .Select(x => (int)x.Second.NumberValue)
-            .ToArray();
+        IEnumerable<int> values =
+        [
+            .. Enumerable
+                .Range(0, 10000)
+                .Select(_ => new RandomDateTime(random))
+                .Cast<IDateTime>()
+                .Select(x => (int)x.Second.NumberValue),
+        ];
 
         double mean = values.Average();
-        double variance = values.Select(v => Math.Pow(v - mean, 2)).Average();
+        double variance = values.Average(v => Math.Pow(v - mean, 2));
         double stdDev = Math.Sqrt(variance);
 
         Assert.InRange(stdDev, 17, 17.5);
@@ -158,15 +170,17 @@ public sealed record RandomDateTimeTests
     {
         Random random = new Random();
 
-        IEnumerable<int> values = Enumerable
-            .Range(0, 10000)
-            .Select(_ => new RandomDateTime(random))
-            .Cast<IDateTime>()
-            .Select(x => (int)x.Millisecond.NumberValue)
-            .ToArray();
+        IEnumerable<int> values =
+        [
+            .. Enumerable
+                .Range(0, 10000)
+                .Select(_ => new RandomDateTime(random))
+                .Cast<IDateTime>()
+                .Select(x => (int)x.Millisecond.NumberValue),
+        ];
 
         double mean = values.Average();
-        double variance = values.Select(v => Math.Pow(v - mean, 2)).Average();
+        double variance = values.Average(v => Math.Pow(v - mean, 2));
         double stdDev = Math.Sqrt(variance);
 
         Assert.InRange(stdDev, 280, 300);
@@ -177,15 +191,17 @@ public sealed record RandomDateTimeTests
     {
         Random random = new Random();
 
-        IEnumerable<int> values = Enumerable
-            .Range(0, 10000)
-            .Select(_ => new RandomDateTime(random))
-            .Cast<IDateTime>()
-            .Select(x => (int)x.Microsecond.NumberValue)
-            .ToArray();
+        IEnumerable<int> values =
+        [
+            .. Enumerable
+                .Range(0, 10000)
+                .Select(_ => new RandomDateTime(random))
+                .Cast<IDateTime>()
+                .Select(x => (int)x.Microsecond.NumberValue),
+        ];
 
         double mean = values.Average();
-        double variance = values.Select(v => Math.Pow(v - mean, 2)).Average();
+        double variance = values.Average(v => Math.Pow(v - mean, 2));
         double stdDev = Math.Sqrt(variance);
 
         Assert.InRange(stdDev, 280, 300);
@@ -196,15 +212,17 @@ public sealed record RandomDateTimeTests
     {
         Random random = new Random();
 
-        IEnumerable<int> values = Enumerable
-            .Range(0, 10000)
-            .Select(_ => new RandomDateTime(random))
-            .Cast<IDateTime>()
-            .Select(x => (int)x.Nanosecond.NumberValue)
-            .ToArray();
+        IEnumerable<int> values =
+        [
+            .. Enumerable
+                .Range(0, 10000)
+                .Select(_ => new RandomDateTime(random))
+                .Cast<IDateTime>()
+                .Select(x => (int)x.Nanosecond.NumberValue),
+        ];
 
         double mean = values.Average();
-        double variance = values.Select(v => Math.Pow(v - mean, 2)).Average();
+        double variance = values.Average(v => Math.Pow(v - mean, 2));
         double stdDev = Math.Sqrt(variance);
 
         Assert.InRange(stdDev, 280, 300);
@@ -213,12 +231,14 @@ public sealed record RandomDateTimeTests
     [Fact]
     public void ThrowsExceptionOnGetHashCode()
     {
-        Assert.Throws<NotSupportedException>(() => new RandomDateTime().GetHashCode());
+        _ = Assert.Throws<NotSupportedException>(() =>
+            new RandomDateTime().GetHashCode()
+        );
     }
 
     [Fact]
     public void ThrowsExceptionOnToString()
     {
-        Assert.Throws<NotSupportedException>(() => new RandomDateTime().ToString());
+        _ = Assert.Throws<NotSupportedException>(() => new RandomDateTime().ToString());
     }
 }

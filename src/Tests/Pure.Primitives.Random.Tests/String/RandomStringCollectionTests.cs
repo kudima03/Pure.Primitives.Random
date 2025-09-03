@@ -1,8 +1,8 @@
-﻿using Pure.Primitives.Abstractions.String;
+using System.Collections;
+using Pure.Primitives.Abstractions.String;
 using Pure.Primitives.Number;
 using Pure.Primitives.Random.Number;
 using Pure.Primitives.Random.String;
-using System.Collections;
 
 namespace Pure.Primitives.Random.Tests.String;
 
@@ -11,9 +11,10 @@ public sealed record RandomStringCollectionTests
     [Fact]
     public void ProduceDifferentLengths()
     {
-        IReadOnlyCollection<int> lengths = new RandomStringCollection(new UShort(50))
-            .Select(x => x.TextValue.Length)
-            .ToArray();
+        IReadOnlyCollection<int> lengths =
+        [
+            .. new RandomStringCollection(new UShort(50)).Select(x => x.TextValue.Length),
+        ];
 
         Assert.Equal(lengths.Count, lengths.Distinct().Count());
     }
@@ -26,14 +27,17 @@ public sealed record RandomStringCollectionTests
             new RandomUShortCollection(new UShort(50))
         );
 
-        Assert.Throws<ArgumentException>(() => randoms.Count());
+        _ = Assert.Throws<ArgumentException>(() => randoms.Count());
     }
 
     [Fact]
     public void ProduceExactCount()
     {
         const ushort count = 1000;
-        Assert.Equal(count, new RandomStringCollection(new UShort(count), new MinUshort()).Count());
+        Assert.Equal(
+            count,
+            new RandomStringCollection(new UShort(count), new MinUshort()).Count()
+        );
     }
 
     [Fact]
@@ -54,7 +58,7 @@ public sealed record RandomStringCollectionTests
     [Fact]
     public void ThrowsExceptionOnGetHashCode()
     {
-        Assert.Throws<NotSupportedException>(() =>
+        _ = Assert.Throws<NotSupportedException>(() =>
             new RandomStringCollection(new MinUshort(), new MinUshort()).GetHashCode()
         );
     }
@@ -62,7 +66,7 @@ public sealed record RandomStringCollectionTests
     [Fact]
     public void ThrowsExceptionOnToString()
     {
-        Assert.Throws<NotSupportedException>(() =>
+        _ = Assert.Throws<NotSupportedException>(() =>
             new RandomStringCollection(new MinUshort(), new MinUshort()).ToString()
         );
     }

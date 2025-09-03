@@ -1,6 +1,6 @@
-﻿using Pure.Primitives.Abstractions.Number;
-using Pure.Primitives.Number;
 using System.Collections;
+using Pure.Primitives.Abstractions.Number;
+using Pure.Primitives.Number;
 
 namespace Pure.Primitives.Random.Number;
 
@@ -28,7 +28,11 @@ public sealed record RandomUIntCollection : IEnumerable<INumber<uint>>
     public RandomUIntCollection(INumber<ushort> count, Random random)
         : this(count, new MinUint(), new MaxUint(), random) { }
 
-    public RandomUIntCollection(INumber<ushort> count, INumber<uint> min, INumber<uint> max)
+    public RandomUIntCollection(
+        INumber<ushort> count,
+        INumber<uint> min,
+        INumber<uint> max
+    )
         : this(count, min, max, Random.Shared) { }
 
     public RandomUIntCollection(

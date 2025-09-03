@@ -1,7 +1,7 @@
-﻿using Pure.Primitives.Abstractions.String;
+using System.Collections;
+using Pure.Primitives.Abstractions.String;
 using Pure.Primitives.Number;
 using Pure.Primitives.Random.String;
-using System.Collections;
 
 namespace Pure.Primitives.Random.Tests.String;
 
@@ -39,12 +39,15 @@ public sealed record RandomStringTests
     {
         Random random = new Random();
 
-        IEnumerable<int> values = new RandomString(new UShort(10000), random)
-            .Select(x => Convert.ToInt32(x.CharValue))
-            .ToArray();
+        IEnumerable<int> values =
+        [
+            .. new RandomString(new UShort(10000), random).Select(x =>
+                Convert.ToInt32(x.CharValue)
+            ),
+        ];
 
         double mean = values.Average();
-        double variance = values.Select(v => Math.Pow(v - mean, 2)).Average();
+        double variance = values.Average(v => Math.Pow(v - mean, 2));
         double stdDev = Math.Sqrt(variance);
 
         Assert.InRange(stdDev, 18000, 20000);
@@ -53,12 +56,15 @@ public sealed record RandomStringTests
     [Fact]
     public void ProduceNormalStandardDeviation()
     {
-        IEnumerable<int> values = new RandomString(new UShort(10000))
-            .Select(x => Convert.ToInt32(x.CharValue))
-            .ToArray();
+        IEnumerable<int> values =
+        [
+            .. new RandomString(new UShort(10000)).Select(x =>
+                Convert.ToInt32(x.CharValue)
+            ),
+        ];
 
         double mean = values.Average();
-        double variance = values.Select(v => Math.Pow(v - mean, 2)).Average();
+        double variance = values.Average(v => Math.Pow(v - mean, 2));
         double stdDev = Math.Sqrt(variance);
 
         Assert.InRange(stdDev, 18000, 20000);
@@ -67,12 +73,16 @@ public sealed record RandomStringTests
     [Fact]
     public void ThrowsExceptionOnGetHashCode()
     {
-        Assert.Throws<NotSupportedException>(() => new RandomString(new MinUshort()).GetHashCode());
+        _ = Assert.Throws<NotSupportedException>(() =>
+            new RandomString(new MinUshort()).GetHashCode()
+        );
     }
 
     [Fact]
     public void ThrowsExceptionOnToString()
     {
-        Assert.Throws<NotSupportedException>(() => new RandomString(new MinUshort()).ToString());
+        _ = Assert.Throws<NotSupportedException>(() =>
+            new RandomString(new MinUshort()).ToString()
+        );
     }
 }

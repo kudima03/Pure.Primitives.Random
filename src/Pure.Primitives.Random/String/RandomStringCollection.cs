@@ -1,7 +1,7 @@
-﻿using Pure.Primitives.Abstractions.Number;
+using System.Collections;
+using Pure.Primitives.Abstractions.Number;
 using Pure.Primitives.Abstractions.String;
 using Pure.Primitives.Random.Number;
-using System.Collections;
 
 namespace Pure.Primitives.Random.String;
 
@@ -30,10 +30,18 @@ public sealed record RandomStringCollection : IEnumerable<IString>
     public RandomStringCollection(INumber<ushort> count, INumber<ushort> length)
         : this(count, length, Random.Shared) { }
 
-    public RandomStringCollection(INumber<ushort> count, INumber<ushort> length, Random random)
-        : this(count, Enumerable.Range(0, count.NumberValue).Select(_ => length), random) { }
+    public RandomStringCollection(
+        INumber<ushort> count,
+        INumber<ushort> length,
+        Random random
+    )
+        : this(count, Enumerable.Range(0, count.NumberValue).Select(_ => length), random)
+    { }
 
-    public RandomStringCollection(INumber<ushort> count, IEnumerable<INumber<ushort>> lengths)
+    public RandomStringCollection(
+        INumber<ushort> count,
+        IEnumerable<INumber<ushort>> lengths
+    )
         : this(count, lengths, Random.Shared) { }
 
     public RandomStringCollection(

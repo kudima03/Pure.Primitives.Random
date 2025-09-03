@@ -1,7 +1,7 @@
-﻿using Pure.Primitives.Abstractions.DateTime;
+using System.Collections;
+using Pure.Primitives.Abstractions.DateTime;
 using Pure.Primitives.Abstractions.Number;
 using Pure.Primitives.Random.Number;
-using System.Collections;
 
 namespace Pure.Primitives.Random.DateTime;
 

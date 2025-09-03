@@ -1,7 +1,7 @@
-﻿using Pure.Primitives.Abstractions.Bool;
+using System.Collections;
+using Pure.Primitives.Abstractions.Bool;
 using Pure.Primitives.Abstractions.Number;
 using Pure.Primitives.Random.Number;
-using System.Collections;
 
 namespace Pure.Primitives.Random.Bool;
 
