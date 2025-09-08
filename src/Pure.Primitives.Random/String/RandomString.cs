@@ -23,13 +23,30 @@ public sealed record RandomString : IString
         : this(length, Random.Shared) { }
 
     public RandomString(INumber<ushort> length, Random random)
+        : this(length, new Char(char.MinValue), new Char(char.MaxValue), random) { }
+
+    public RandomString(IChar minValue, IChar maxValue)
+        : this(minValue, maxValue, Random.Shared) { }
+
+    public RandomString(IChar minValue, IChar maxValue, Random random)
+        : this(new RandomUShort(random), minValue, maxValue, random) { }
+
+    public RandomString(INumber<ushort> length, IChar minValue, IChar maxValue)
+        : this(length, minValue, maxValue, Random.Shared) { }
+
+    public RandomString(
+        INumber<ushort> length,
+        IChar minValue,
+        IChar maxValue,
+        Random random
+    )
         : this(
             new Lazy<string>(() =>
                 string.Join(
                     string.Empty,
                     Enumerable
                         .Range(0, length.NumberValue)
-                        .Select(_ => random.Next(char.MinValue, char.MaxValue))
+                        .Select(_ => random.Next(minValue.CharValue, maxValue.CharValue))
                         .Select(Convert.ToChar)
                 )
             )
