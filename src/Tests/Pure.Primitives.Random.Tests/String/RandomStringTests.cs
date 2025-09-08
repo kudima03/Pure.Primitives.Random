@@ -1,14 +1,28 @@
 using System.Collections;
+using Pure.Primitives.Abstractions.Number;
 using Pure.Primitives.Abstractions.String;
 using Pure.Primitives.Number;
+using Pure.Primitives.Random.Number;
 using Pure.Primitives.Random.String;
 
 namespace Pure.Primitives.Random.Tests.String;
 
+using Char = Primitives.Char.Char;
 using Random = System.Random;
 
 public sealed record RandomStringTests
 {
+    [Fact]
+    public void ProduceValuesInBounds()
+    {
+        INumber<ushort> maxChar = new RandomUShort(new MinUshort(), new UShort(128));
+        IString str = new RandomString(
+            new Char(char.MinValue),
+            new Char(Convert.ToChar(maxChar.NumberValue))
+        );
+        Assert.True(str.All(x => x.CharValue >= 0 && x.CharValue < maxChar.NumberValue));
+    }
+
     [Fact]
     public void ProduceExactLength()
     {
