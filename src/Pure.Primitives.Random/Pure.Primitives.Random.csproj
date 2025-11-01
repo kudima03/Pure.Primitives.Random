@@ -4,9 +4,7 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
     <CheckForOverflowUnderflow>true</CheckForOverflowUnderflow>
-    <IsTrimmable>true</IsTrimmable>
-    <EnableTrimAnalyzer>true</EnableTrimAnalyzer>
-    <EnableAotAnalyzer>true</EnableAotAnalyzer>
+    <IsAotCompatible>true</IsAotCompatible>
   </PropertyGroup>
   <PropertyGroup>
     <PackageId>Pure.Primitives.Random</PackageId>
