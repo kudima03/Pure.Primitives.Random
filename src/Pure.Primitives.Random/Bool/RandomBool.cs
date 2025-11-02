@@ -19,7 +19,7 @@ public sealed record RandomBool : IBool
         _lazyBool = boolValue;
     }
 
-    bool IBool.BoolValue => _lazyBool.Value;
+    public bool BoolValue => _lazyBool.Value;
 
     public override int GetHashCode()
     {

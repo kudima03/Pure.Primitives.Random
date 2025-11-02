@@ -29,7 +29,7 @@ public sealed record RandomUShort : INumber<ushort>
         _lazyValue = lazyValue;
     }
 
-    ushort INumber<ushort>.NumberValue => _lazyValue.Value;
+    public ushort NumberValue => _lazyValue.Value;
 
     public override int GetHashCode()
     {

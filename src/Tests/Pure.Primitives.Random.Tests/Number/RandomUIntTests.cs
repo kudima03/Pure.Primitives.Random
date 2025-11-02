@@ -30,7 +30,7 @@ public sealed record RandomUIntTests
     public void ThrowsExceptionOnMinValueGreaterThanMaxValue()
     {
         _ = Assert.Throws<ArgumentOutOfRangeException>(() =>
-            ((INumber<uint>)new RandomUInt(new MaxUint(), new MinUint())).NumberValue
+            new RandomUInt(new MaxUint(), new MinUint()).NumberValue
         );
     }
 
