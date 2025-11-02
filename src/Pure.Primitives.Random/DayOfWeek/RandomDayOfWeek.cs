@@ -9,8 +9,6 @@ using Random = System.Random;
 
 public sealed record RandomDayOfWeek : IDayOfWeek
 {
-    private readonly INumber<ushort> _dayNumberValue;
-
     public RandomDayOfWeek()
         : this(Random.Shared) { }
 
@@ -19,10 +17,10 @@ public sealed record RandomDayOfWeek : IDayOfWeek
 
     private RandomDayOfWeek(INumber<ushort> dayNumberValue)
     {
-        _dayNumberValue = dayNumberValue;
+        DayNumberValue = dayNumberValue;
     }
 
-    public INumber<ushort> DayNumberValue => _dayNumberValue;
+    public INumber<ushort> DayNumberValue { get; }
 
     public override int GetHashCode()
     {

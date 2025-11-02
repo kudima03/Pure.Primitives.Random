@@ -30,9 +30,9 @@ public sealed record RandomUShortTests
     public void ThrowsExceptionOnMinValueGreaterThanMaxValue()
     {
         _ = Assert.Throws<ArgumentOutOfRangeException>(() =>
-            (
-                (INumber<ushort>)new RandomUShort(new MaxUshort(), new MinUshort())
-            ).NumberValue
+
+                new RandomUShort(new MaxUshort(), new MinUshort())
+            .NumberValue
         );
     }
 
