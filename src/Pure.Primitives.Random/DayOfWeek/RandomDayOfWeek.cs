@@ -22,7 +22,7 @@ public sealed record RandomDayOfWeek : IDayOfWeek
         _dayNumberValue = dayNumberValue;
     }
 
-    INumber<ushort> IDayOfWeek.DayNumberValue => _dayNumberValue;
+    public INumber<ushort> DayNumberValue => _dayNumberValue;
 
     public override int GetHashCode()
     {

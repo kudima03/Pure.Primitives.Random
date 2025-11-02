@@ -58,7 +58,7 @@ public sealed record RandomString : IString
         _lazyValue = lazyValue;
     }
 
-    string IString.TextValue => _lazyValue.Value;
+    public string TextValue => _lazyValue.Value;
 
     public IEnumerator<IChar> GetEnumerator()
     {

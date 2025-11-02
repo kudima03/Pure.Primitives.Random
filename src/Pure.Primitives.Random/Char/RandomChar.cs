@@ -24,7 +24,7 @@ public sealed record RandomChar : IChar
         _lazyChar = lazyChar;
     }
 
-    char IChar.CharValue => _lazyChar.Value;
+    public char CharValue => _lazyChar.Value;
 
     public override int GetHashCode()
     {
