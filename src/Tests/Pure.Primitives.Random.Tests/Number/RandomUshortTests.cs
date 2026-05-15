@@ -77,6 +77,42 @@ public sealed record RandomUShortTests
     }
 
     [Fact]
+    public void MeanConsistencyWithSharedProvider()
+    {
+        Random random = new Random();
+
+        IEnumerable<int> values =
+        [
+            .. Enumerable
+                .Range(0, 10000)
+                .Select(_ => new RandomUShort(random))
+                .Cast<INumber<ushort>>()
+                .Select(x => (int)x.NumberValue),
+        ];
+
+        double mean = values.Average();
+
+        Assert.InRange(mean, 31767.0, 33767.0);
+    }
+
+    [Fact]
+    public void MeanConsistency()
+    {
+        IEnumerable<int> values =
+        [
+            .. Enumerable
+                .Range(0, 10000)
+                .Select(_ => new RandomUShort())
+                .Cast<INumber<ushort>>()
+                .Select(x => (int)x.NumberValue),
+        ];
+
+        double mean = values.Average();
+
+        Assert.InRange(mean, 31767.0, 33767.0);
+    }
+
+    [Fact]
     public void ThrowsExceptionOnGetHashCode()
     {
         _ = Assert.Throws<NotSupportedException>(() => new RandomUShort().GetHashCode());

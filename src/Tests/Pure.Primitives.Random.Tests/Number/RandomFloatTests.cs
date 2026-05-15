@@ -48,6 +48,42 @@ public sealed record RandomFloatTests
     }
 
     [Fact]
+    public void MeanConsistencyWithSharedProvider()
+    {
+        Random random = new Random();
+
+        IEnumerable<float> values =
+        [
+            .. Enumerable
+                .Range(0, 10000)
+                .Select(_ => new RandomFloat(random))
+                .Cast<INumber<float>>()
+                .Select(x => x.NumberValue),
+        ];
+
+        double mean = values.Average();
+
+        Assert.InRange(mean, 0.45, 0.55);
+    }
+
+    [Fact]
+    public void MeanConsistency()
+    {
+        IEnumerable<float> values =
+        [
+            .. Enumerable
+                .Range(0, 10000)
+                .Select(_ => new RandomFloat())
+                .Cast<INumber<float>>()
+                .Select(x => x.NumberValue),
+        ];
+
+        double mean = values.Average();
+
+        Assert.InRange(mean, 0.45, 0.55);
+    }
+
+    [Fact]
     public void ThrowsExceptionOnGetHashCode()
     {
         _ = Assert.Throws<NotSupportedException>(() => new RandomFloat().GetHashCode());

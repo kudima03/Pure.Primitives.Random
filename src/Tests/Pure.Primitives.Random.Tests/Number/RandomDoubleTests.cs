@@ -48,6 +48,42 @@ public sealed record RandomDoubleTests
     }
 
     [Fact]
+    public void MeanConsistencyWithSharedProvider()
+    {
+        Random random = new Random();
+
+        IEnumerable<double> values =
+        [
+            .. Enumerable
+                .Range(0, 10000)
+                .Select(_ => new RandomDouble(random))
+                .Cast<INumber<double>>()
+                .Select(x => x.NumberValue),
+        ];
+
+        double mean = values.Average();
+
+        Assert.InRange(mean, 0.45, 0.55);
+    }
+
+    [Fact]
+    public void MeanConsistency()
+    {
+        IEnumerable<double> values =
+        [
+            .. Enumerable
+                .Range(0, 10000)
+                .Select(_ => new RandomDouble())
+                .Cast<INumber<double>>()
+                .Select(x => x.NumberValue),
+        ];
+
+        double mean = values.Average();
+
+        Assert.InRange(mean, 0.45, 0.55);
+    }
+
+    [Fact]
     public void ThrowsExceptionOnGetHashCode()
     {
         _ = Assert.Throws<NotSupportedException>(() => new RandomDouble().GetHashCode());
