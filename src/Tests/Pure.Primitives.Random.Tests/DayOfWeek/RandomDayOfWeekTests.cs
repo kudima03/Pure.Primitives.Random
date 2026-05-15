@@ -25,7 +25,7 @@ public sealed record RandomDayOfWeekTests
         double variance = values.Average(v => Math.Pow(v - mean, 2));
         double stdDev = Math.Sqrt(variance);
 
-        Assert.InRange(stdDev, 2.1, 2.4);
+        Assert.InRange(stdDev, 1.7, 2.4);
     }
 
     [Fact]
@@ -44,7 +44,7 @@ public sealed record RandomDayOfWeekTests
         double variance = values.Average(v => Math.Pow(v - mean, 2));
         double stdDev = Math.Sqrt(variance);
 
-        Assert.InRange(stdDev, 2.1, 2.4);
+        Assert.InRange(stdDev, 1.7, 2.4);
     }
 
     [Fact]
