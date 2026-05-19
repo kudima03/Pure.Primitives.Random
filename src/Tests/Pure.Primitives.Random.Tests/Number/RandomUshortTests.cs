@@ -113,6 +113,40 @@ public sealed record RandomUShortTests
     }
 
     [Fact]
+    public void DifferentSeedsProduceDifferentSequences()
+    {
+        Random random1 = new Random(42);
+        Random random2 = new Random(137);
+
+        IEnumerable<double> seq1 =
+        [
+            .. Enumerable
+                .Range(0, 10000)
+                .Select(_ => new RandomUShort(random1))
+                .Cast<INumber<ushort>>()
+                .Select(x => (double)x.NumberValue),
+        ];
+
+        IEnumerable<double> seq2 =
+        [
+            .. Enumerable
+                .Range(0, 10000)
+                .Select(_ => new RandomUShort(random2))
+                .Cast<INumber<ushort>>()
+                .Select(x => (double)x.NumberValue),
+        ];
+
+        double mean1 = seq1.Average();
+        double mean2 = seq2.Average();
+        double numerator = seq1.Zip(seq2, (a, b) => (a - mean1) * (b - mean2)).Sum();
+        double denom1 = Math.Sqrt(seq1.Sum(a => Math.Pow(a - mean1, 2)));
+        double denom2 = Math.Sqrt(seq2.Sum(b => Math.Pow(b - mean2, 2)));
+        double correlation = numerator / (denom1 * denom2);
+
+        Assert.InRange(Math.Abs(correlation), 0, 0.05);
+    }
+
+    [Fact]
     public void ThrowsExceptionOnGetHashCode()
     {
         _ = Assert.Throws<NotSupportedException>(() => new RandomUShort().GetHashCode());
