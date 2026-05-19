@@ -89,7 +89,7 @@ public sealed record RandomDoubleTests
         Random random1 = new Random(42);
         Random random2 = new Random(137);
 
-        double[] seq1 =
+        IEnumerable<double> seq1 =
         [
             .. Enumerable
                 .Range(0, 10000)
@@ -98,7 +98,7 @@ public sealed record RandomDoubleTests
                 .Select(x => x.NumberValue),
         ];
 
-        double[] seq2 =
+        IEnumerable<double> seq2 =
         [
             .. Enumerable
                 .Range(0, 10000)
