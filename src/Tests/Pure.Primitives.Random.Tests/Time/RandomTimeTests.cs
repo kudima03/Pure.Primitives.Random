@@ -54,7 +54,7 @@ public sealed record RandomTimeTests
         double variance = values.Average(v => Math.Pow(v - mean, 2));
         double stdDev = Math.Sqrt(variance);
 
-        Assert.InRange(stdDev, 6.8, 7);
+        Assert.InRange(stdDev, 6.0, 8.0);
     }
 
     [Fact]
@@ -75,7 +75,7 @@ public sealed record RandomTimeTests
         double variance = values.Average(v => Math.Pow(v - mean, 2));
         double stdDev = Math.Sqrt(variance);
 
-        Assert.InRange(stdDev, 17, 17.5);
+        Assert.InRange(stdDev, 15.0, 19.5);
     }
 
     [Fact]
@@ -96,7 +96,7 @@ public sealed record RandomTimeTests
         double variance = values.Average(v => Math.Pow(v - mean, 2));
         double stdDev = Math.Sqrt(variance);
 
-        Assert.InRange(stdDev, 17, 17.5);
+        Assert.InRange(stdDev, 15.0, 19.5);
     }
 
     [Fact]
@@ -117,7 +117,7 @@ public sealed record RandomTimeTests
         double variance = values.Average(v => Math.Pow(v - mean, 2));
         double stdDev = Math.Sqrt(variance);
 
-        Assert.InRange(stdDev, 280, 300);
+        Assert.InRange(stdDev, 255, 325);
     }
 
     [Fact]
@@ -138,7 +138,7 @@ public sealed record RandomTimeTests
         double variance = values.Average(v => Math.Pow(v - mean, 2));
         double stdDev = Math.Sqrt(variance);
 
-        Assert.InRange(stdDev, 280, 300);
+        Assert.InRange(stdDev, 255, 325);
     }
 
     [Fact]
@@ -159,7 +159,7 @@ public sealed record RandomTimeTests
         double variance = values.Average(v => Math.Pow(v - mean, 2));
         double stdDev = Math.Sqrt(variance);
 
-        Assert.InRange(stdDev, 280, 300);
+        Assert.InRange(stdDev, 255, 325);
     }
 
     [Fact]

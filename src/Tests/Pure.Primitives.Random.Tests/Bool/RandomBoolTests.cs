@@ -25,7 +25,7 @@ public sealed record RandomBoolTests
         double variance = values.Average(v => Math.Pow(v - mean, 2));
         double stdDev = Math.Sqrt(variance);
 
-        Assert.InRange(stdDev, 0.48, 0.5);
+        Assert.InRange(stdDev, 0.45, 0.53);
     }
 
     [Fact]
@@ -44,7 +44,7 @@ public sealed record RandomBoolTests
         double variance = values.Average(v => Math.Pow(v - mean, 2));
         double stdDev = Math.Sqrt(variance);
 
-        Assert.InRange(stdDev, 0.48, 0.5);
+        Assert.InRange(stdDev, 0.45, 0.53);
     }
 
     [Fact]

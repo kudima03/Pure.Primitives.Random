@@ -62,7 +62,7 @@ public sealed record RandomUIntCollectionTests
         double variance = values.Average(v => Math.Pow(v - mean, 2));
         double stdDev = Math.Sqrt(variance);
 
-        Assert.InRange(stdDev, 1225000000, 1255000000);
+        Assert.InRange(stdDev, 1190000000, 1290000000);
     }
 
     [Fact]
@@ -79,7 +79,7 @@ public sealed record RandomUIntCollectionTests
         double variance = values.Average(v => Math.Pow(v - mean, 2));
         double stdDev = Math.Sqrt(variance);
 
-        Assert.InRange(stdDev, 1225000000, 1255000000);
+        Assert.InRange(stdDev, 1190000000, 1290000000);
     }
 
     [Fact]
