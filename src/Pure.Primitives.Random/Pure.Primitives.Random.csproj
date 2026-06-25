@@ -18,6 +18,6 @@
     <PackageProjectUrl>https://github.com/kudima03/Pure.Primitives.Random</PackageProjectUrl>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="Pure.Primitives" Version="3.6.4" />
+    <PackageReference Include="Pure.Primitives" Version="3.6.5" />
   </ItemGroup>
 </Project>
