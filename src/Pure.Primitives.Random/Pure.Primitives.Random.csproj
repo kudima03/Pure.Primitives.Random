@@ -7,7 +7,7 @@
     <CheckForOverflowUnderflow>true</CheckForOverflowUnderflow>
     <IsAotCompatible>true</IsAotCompatible>
     <EnablePackageValidation>true</EnablePackageValidation>
-    <PackageValidationBaselineVersion>0.8.3</PackageValidationBaselineVersion>
+    <PackageValidationBaselineVersion>0.9.0</PackageValidationBaselineVersion>
   </PropertyGroup>
   <PropertyGroup>
     <PackageId>Pure.Primitives.Random</PackageId>
