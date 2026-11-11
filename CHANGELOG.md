@@ -6,6 +6,16 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ---
 
+## [0.10.0] — 2026-11-11
+
+### Added
+
+- Added the `net11.0` target framework.
+
+### Changed
+
+- Updated the `Pure.Primitives` dependency from 3.7.0 to 3.8.0.
+
 ## [0.9.0] — 2026-10-22
 
 ### Changed
